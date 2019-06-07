@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'buttons/button.dart';
+import 'package:hand_cricket/buttons/button.dart';
 import 'toss_selection.dart';
 
 class TossPage extends StatelessWidget {

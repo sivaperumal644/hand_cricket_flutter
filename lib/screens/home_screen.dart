@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'about_app.dart';
-import 'buttons/button.dart';
-import 'rules.dart';
+import 'package:hand_cricket/buttons/button.dart';
+import 'rules_screen.dart';
 import 'toss.dart';
 
 class HomeScreen extends StatefulWidget {

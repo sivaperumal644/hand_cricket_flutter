@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hand_cricket/buttons/input_button.dart';
+import 'result_screen.dart';
 
 class MatchScreen extends StatelessWidget {
   @override
@@ -246,7 +247,12 @@ class MatchScreen extends StatelessWidget {
                         Material(
                             type: MaterialType.transparency,
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ResultPage()));
+                              },
                               child: inputButton('0'),
                               borderRadius: BorderRadius.circular(60),
                             ))

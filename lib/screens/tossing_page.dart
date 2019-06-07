@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'buttons/button.dart';
+import 'package:hand_cricket/buttons/button.dart';
 import 'match_screen.dart';
 
 class TossingPage extends StatefulWidget {
