@@ -36,24 +36,28 @@ class TossPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 75, 20, 20),
                 child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TossSelection()));
-                    },
-                    child: buttons('O', 'Odd')),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TossSelection()));
+                  },
+                  child: buttons('O', 'Odd'),
+                  borderRadius: BorderRadius.circular(24),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TossSelection()));
-                    },
-                    child: buttons('E', 'Even')),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TossSelection()));
+                  },
+                  child: buttons('E', 'Even'),
+                  borderRadius: BorderRadius.circular(24),
+                ),
               )
             ],
           ),

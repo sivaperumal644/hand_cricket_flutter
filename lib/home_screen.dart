@@ -36,22 +36,28 @@ class HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: InkWell(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => TossPage()
-                            ));
-                          },
-                          child: buttons('5', "5 Over Game")),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TossPage()));
+                        },
+                        child: buttons('5', "5 Over Game"),
+                        borderRadius: BorderRadius.circular(24),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: InkWell(
-                          onTap: () {
-                           Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => TossPage()
-                            ));
-                          },
-                          child: buttons('10', "10 Over Game")),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TossPage()));
+                        },
+                        child: buttons('10', "10 Over Game"),
+                        borderRadius: BorderRadius.circular(24),
+                      ),
                     ),
                     InkWell(
                       onTap: () {
