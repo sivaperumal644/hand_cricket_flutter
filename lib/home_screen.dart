@@ -3,7 +3,6 @@ import 'about_app.dart';
 import 'buttons/button.dart';
 import 'rules.dart';
 import 'toss.dart';
-import 'package:toast/toast.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
