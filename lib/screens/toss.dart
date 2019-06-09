@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hand_cricket/buttons/button.dart';
 import 'toss_selection.dart';
+import 'package:provider/provider.dart';
+import 'package:hand_cricket/app_state.dart';
 
-class TossPage extends StatelessWidget {
+class TossPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return TossPageState();
+  }
+}
+
+class TossPageState extends State<TossPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,36 +42,28 @@ class TossPage extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 75, 20, 20),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TossSelection()));
-                  },
-                  child: buttons('O', 'Odd'),
-                  borderRadius: BorderRadius.circular(24),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TossSelection()));
-                  },
-                  child: buttons('E', 'Even'),
-                  borderRadius: BorderRadius.circular(24),
-                ),
-              )
+              oddOrEvenInput(context, 1, 'O', 'Odd'),
+              oddOrEvenInput(context, 0, 'E', 'Even')
             ],
           ),
         ],
       ),
     );
   }
+}
+
+Widget oddOrEvenInput(context, input, first, second) {
+  final appState = Provider.of<AppState>(context);
+  return Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: InkWell(
+      onTap: () {
+        appState.setOddOrEven(input);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => TossSelection()));
+      },
+      child: buttons(first, second),
+      borderRadius: BorderRadius.circular(24),
+    ),
+  );
 }

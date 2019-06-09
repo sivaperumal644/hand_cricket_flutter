@@ -12,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
+  int totalBalls = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +37,9 @@ class HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.all(20.0),
                       child: InkWell(
                         onTap: () {
+                          setState(() {
+                            totalBalls = 30;
+                          });
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -49,6 +53,9 @@ class HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.all(20.0),
                       child: InkWell(
                         onTap: () {
+                          setState(() {
+                            totalBalls = 60;
+                          });
                           Navigator.push(
                               context,
                               MaterialPageRoute(

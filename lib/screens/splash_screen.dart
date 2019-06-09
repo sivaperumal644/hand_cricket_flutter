@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
+import 'package:hand_cricket/app_state.dart';
+import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: SplashScreen(),
+    return ChangeNotifierProvider<AppState>(
+      builder: (_) => AppState(),
+      child: MaterialApp(
+        home: Scaffold(
+          body: SplashScreen(),
+        ),
       ),
     );
   }
