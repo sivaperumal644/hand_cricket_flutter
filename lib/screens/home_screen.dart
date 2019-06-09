@@ -12,7 +12,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  int totalBalls = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,38 +32,8 @@ class HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            totalBalls = 30;
-                          });
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TossPage()));
-                        },
-                        child: buttons('5', "5 Over Game"),
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            totalBalls = 60;
-                          });
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TossPage()));
-                        },
-                        child: buttons('10', "10 Over Game"),
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                    ),
+                    noOfOverButton(context, '5', '5 Over Game'),
+                    noOfOverButton(context, '10', '10 Over Game'),
                     InkWell(
                       onTap: () {
                         Navigator.push(context,
@@ -110,4 +79,24 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         ));
   }
+}
+
+Widget noOfOverButton(context, icon, content) {
+  return Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: InkWell(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => TossPage()));
+      },
+      child: buttons(
+          icon,
+          content,
+          Color.fromRGBO(255, 255, 255, 0.5),
+          Color.fromRGBO(229, 109, 109, 100),
+          Colors.white,
+          Color.fromRGBO(255, 255, 255, 0.5)),
+      borderRadius: BorderRadius.circular(24),
+    ),
+  );
 }

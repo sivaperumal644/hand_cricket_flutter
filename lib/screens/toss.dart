@@ -42,8 +42,24 @@ class TossPageState extends State<TossPage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              oddOrEvenInput(context, 1, 'O', 'Odd'),
-              oddOrEvenInput(context, 0, 'E', 'Even')
+              oddOrEvenInput(
+                  context,
+                  1,
+                  'O',
+                  'Odd',
+                  Color.fromRGBO(255, 255, 255, 0.5),
+                  Color.fromRGBO(229, 109, 109, 100),
+                  Colors.white,
+                  Color.fromRGBO(255, 255, 255, 0.5)),
+              oddOrEvenInput(
+                  context,
+                  0,
+                  'E',
+                  'Even',
+                  Color.fromRGBO(255, 255, 255, 0.5),
+                  Color.fromRGBO(229, 109, 109, 100),
+                  Colors.white,
+                  Color.fromRGBO(255, 255, 255, 0.5))
             ],
           ),
         ],
@@ -52,7 +68,8 @@ class TossPageState extends State<TossPage> {
   }
 }
 
-Widget oddOrEvenInput(context, input, first, second) {
+Widget oddOrEvenInput(context, input, icon, text, borderColor, iconColor,
+    iconBorderColor, textColor) {
   final appState = Provider.of<AppState>(context);
   return Padding(
     padding: const EdgeInsets.all(20.0),
@@ -62,7 +79,8 @@ Widget oddOrEvenInput(context, input, first, second) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => TossSelection()));
       },
-      child: buttons(first, second),
+      child: buttons(
+          icon, text, borderColor, iconColor, iconBorderColor, textColor),
       borderRadius: BorderRadius.circular(24),
     ),
   );

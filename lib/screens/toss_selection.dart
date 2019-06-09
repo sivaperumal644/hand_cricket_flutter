@@ -16,7 +16,6 @@ class TossSelectionState extends State<TossSelection> {
   int selectedInput = 0;
   @override
   Widget build(BuildContext context) {
-    //final appState = Provider.of<AppState>(context);
     return Scaffold(
         backgroundColor: Color.fromRGBO(221, 63, 63, 50),
         body: Column(

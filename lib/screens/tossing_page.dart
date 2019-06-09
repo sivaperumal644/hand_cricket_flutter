@@ -15,8 +15,8 @@ class TossingPage extends StatefulWidget {
 class TossingPageState extends State<TossingPage> {
   bool isTossing = true;
   String tossResult = 'TOSSING';
-  Color color = Color.fromRGBO(255, 255, 255, 0.5);
-  String won = "";
+  Color tossContainerColor = Color.fromRGBO(255, 255, 255, 0.5);
+  String winner = "";
   Widget choice = Text('');
   String youHaveTo;
   Widget batting = Container();
@@ -34,12 +34,15 @@ class TossingPageState extends State<TossingPage> {
             child: Stack(children: <Widget>[
               Center(
                 child: SizedBox(
-                  child: isTossing == true
-                      ? CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
-                          strokeWidth: 5.0,
-                        )
-                      : null,
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: isTossing == true
+                        ? CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                            strokeWidth: 5.0,
+                          )
+                        : null,
+                  ),
                   height: 220,
                   width: 220,
                 ),
@@ -50,7 +53,7 @@ class TossingPageState extends State<TossingPage> {
                   height: 220,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(110),
-                      border: Border.all(color: color, width: 5)),
+                      border: Border.all(color: tossContainerColor, width: 5)),
                 ),
               ),
               Center(
@@ -59,7 +62,9 @@ class TossingPageState extends State<TossingPage> {
                 child: Text(
                   tossResult,
                   style: TextStyle(
-                      fontFamily: 'Oxygen', fontSize: 36, color: color),
+                      fontFamily: 'Oxygen',
+                      fontSize: 36,
+                      color: tossContainerColor),
                 ),
               ))
             ]),
@@ -67,7 +72,7 @@ class TossingPageState extends State<TossingPage> {
           Padding(
             padding: const EdgeInsets.only(top: 44.0),
             child: Text(
-              won,
+              winner,
               style: TextStyle(
                   fontFamily: 'Oxygen',
                   fontSize: 24,
@@ -99,9 +104,9 @@ class TossingPageState extends State<TossingPage> {
       setState(() {
         isTossing = false;
         tossResult = tossResultfun(context);
-        color = Colors.white;
+        tossContainerColor = Colors.white;
         if (toss(context)) {
-          won = "You won the toss.";
+          winner = "You won the toss.";
           choice = Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Text(
@@ -117,7 +122,13 @@ class TossingPageState extends State<TossingPage> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MatchScreen()));
             },
-            child: buttons('T', 'Batting'),
+            child: buttons(
+                'T',
+                'Batting',
+                Color.fromRGBO(255, 255, 255, 0.5),
+                Color.fromRGBO(229, 109, 109, 100),
+                Colors.white,
+                Color.fromRGBO(255, 255, 255, 0.5)),
             borderRadius: BorderRadius.circular(20),
           );
           bowling = InkWell(
@@ -125,7 +136,13 @@ class TossingPageState extends State<TossingPage> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MatchScreen()));
             },
-            child: buttons('B', 'Bowling'),
+            child: buttons(
+                'B',
+                'Bowling',
+                Color.fromRGBO(255, 255, 255, 0.5),
+                Color.fromRGBO(229, 109, 109, 100),
+                Colors.white,
+                Color.fromRGBO(255, 255, 255, 0.5)),
             borderRadius: BorderRadius.circular(20),
           );
         } else {
@@ -136,7 +153,7 @@ class TossingPageState extends State<TossingPage> {
             opponentChoice = 'Bowling';
             youHaveTo = 'Batsman';
           }
-          won = "You lose the toss.";
+          winner = "You lose the toss.";
           choice = Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: RichText(

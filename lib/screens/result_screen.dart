@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
+import 'package:hand_cricket/buttons/button.dart';
 
 class ResultPage extends StatelessWidget {
   @override
@@ -98,47 +99,20 @@ class ResultPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.only(top: 40.0, left: 20.0, right: 20.0),
                 child: InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
-                  },
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    height: 80,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                            color: Color.fromRGBO(255, 50, 50, 0.5), width: 3)),
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Container(
-                            child: Center(
-                              child: Text(
-                                'N',
-                                style: TextStyle(
-                                    fontSize: 24,
-                                    color: Color.fromRGBO(229, 109, 109, 100)),
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25.0),
-                                color: Color.fromRGBO(255, 211, 211, 100)),
-                            width: 45,
-                            height: 45,
-                          ),
-                        ),
-                        Text(
-                          'New Game',
-                          style: TextStyle(
-                              fontSize: 24,
-                              color: Color.fromRGBO(221, 63, 63, 1)),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
+                    },
+                    borderRadius: BorderRadius.circular(20),
+                    child: buttons(
+                        'N',
+                        'New Game',
+                        Color.fromRGBO(255, 50, 50, 0.5),
+                        Color.fromRGBO(229, 109, 109, 100),
+                        Color.fromRGBO(255, 211, 211, 100),
+                        Color.fromRGBO(221, 63, 63, 1))),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 60.0, left: 20.0),
