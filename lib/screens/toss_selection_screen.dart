@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hand_cricket/buttons/input_button.dart';
 import 'package:hand_cricket/app_state.dart';
 import 'package:provider/provider.dart';
-import 'tossing_page.dart';
+import 'tossing_screen.dart';
 import 'dart:math';
 
 class TossSelection extends StatefulWidget {
@@ -13,7 +13,6 @@ class TossSelection extends StatefulWidget {
 }
 
 class TossSelectionState extends State<TossSelection> {
-  int selectedInput = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,9 +66,7 @@ class TossSelectionState extends State<TossSelection> {
                 padding: const EdgeInsets.only(top: 45.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    tossInput(context, '0')
-                  ],
+                  children: <Widget>[tossInput(context, '0')],
                 ),
               )
             ]));
@@ -80,7 +77,7 @@ Widget tossInput(context, input) {
   final appState = Provider.of<AppState>(context);
   return InkWell(
       onTap: () {
-        appState.setSelectedInput(int.parse(input)+random());
+        appState.setSelectedInput(int.parse(input) + random());
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => TossingPage()));
       },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hand_cricket/buttons/button.dart';
-import 'toss_selection.dart';
+import 'toss_selection_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:hand_cricket/app_state.dart';
 

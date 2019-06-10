@@ -69,27 +69,36 @@ class TossingPageState extends State<TossingPage> {
               ))
             ]),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 44.0),
-            child: Text(
-              winner,
-              style: TextStyle(
-                  fontFamily: 'Oxygen',
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 44.0),
+                child: Text(
+                  winner,
+                  style: TextStyle(
+                      fontFamily: 'Oxygen',
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+              choice,
+            ],
           ),
-          choice,
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 20.0),
-            child: batting,
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: bowling,
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 20.0),
+                  child: batting,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: bowling,
+                ),
+              ],
             ),
           ),
         ],
@@ -119,6 +128,7 @@ class TossingPageState extends State<TossingPage> {
           );
           batting = InkWell(
             onTap: () {
+              selectBattingOrBowling(1, context);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MatchScreen()));
             },
@@ -133,6 +143,7 @@ class TossingPageState extends State<TossingPage> {
           );
           bowling = InkWell(
             onTap: () {
+              selectBattingOrBowling(0, context);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MatchScreen()));
             },
@@ -146,7 +157,8 @@ class TossingPageState extends State<TossingPage> {
             borderRadius: BorderRadius.circular(20),
           );
         } else {
-          if (opponentSelection() == 0) {
+          int selection = opponentSelection();
+          if (selection == 0) {
             opponentChoice = 'Batting';
             youHaveTo = 'Bowler';
           } else {
@@ -190,6 +202,7 @@ class TossingPageState extends State<TossingPage> {
           bowling = InkWell(
             borderRadius: BorderRadius.circular(20),
             onTap: () {
+              selectBattingOrBowling(selection, context);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MatchScreen()));
             },
@@ -245,4 +258,9 @@ int opponentSelection() {
   final rdm = new Random();
   int rnd = min + rdm.nextInt(max - min);
   return rnd;
+}
+
+void selectBattingOrBowling(int selection, context){
+  final appState = Provider.of<AppState>(context);
+  appState.setBattingOrBowling(selection);
 }

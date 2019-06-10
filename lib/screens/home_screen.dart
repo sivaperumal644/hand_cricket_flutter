@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'about_app.dart';
+import 'about_app_screen.dart';
 import 'package:hand_cricket/buttons/button.dart';
 import 'rules_screen.dart';
-import 'toss.dart';
+import 'toss_screen.dart';
+import 'package:hand_cricket/app_state.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -32,8 +34,8 @@ class HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    noOfOverButton(context, '5', '5 Over Game'),
-                    noOfOverButton(context, '10', '10 Over Game'),
+                    noOfOverButton(context, 30, '5', '5 Over Game'),
+                    noOfOverButton(context, 60, '10', '10 Over Game'),
                     InkWell(
                       onTap: () {
                         Navigator.push(context,
@@ -81,11 +83,13 @@ class HomeScreenState extends State<HomeScreen> {
   }
 }
 
-Widget noOfOverButton(context, icon, content) {
+Widget noOfOverButton(context, overs, icon, content) {
+  final appState = Provider.of<AppState>(context);
   return Padding(
     padding: const EdgeInsets.all(20.0),
     child: InkWell(
       onTap: () {
+        appState.setTotalOvers(overs);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => TossPage()));
       },

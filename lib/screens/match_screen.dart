@@ -1,10 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:hand_cricket/buttons/input_button.dart';
 import 'result_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:hand_cricket/app_state.dart';
+import 'dart:math';
+
+final oversBowl = [
+  '00.0',
+  '00.1',
+  '00.2',
+  '00.3',
+  '00.4',
+  '00.5',
+  '01.0',
+  '01.1',
+  '01.2',
+  '01.3',
+  '01.4',
+  '01.5',
+  '02.0',
+  '02.1',
+  '02.2',
+  '02.3',
+  '02.4',
+  '02.5',
+  '03.0',
+  '03.1',
+  '03.2',
+  '03.3',
+  '03.4',
+  '03.5',
+  '04.0',
+  '04.1',
+  '04.2',
+  '04.3',
+  '04.4',
+  '04.5',
+  '05.0',
+  '05.1',
+  '05.2',
+  '05.3',
+  '05.4',
+  '05.5',
+  '06.0',
+  '06.1',
+  '06.2',
+  '06.3',
+  '06.4',
+  '06.5',
+  '07.0',
+  '07.1',
+  '07.2',
+  '07.3',
+  '07.4',
+  '07.5',
+  '08.0',
+  '08.1',
+  '08.2',
+  '08.3',
+  '08.4',
+  '08.5',
+  '09.0',
+  '09.1',
+  '09.2',
+  '09.3',
+  '09.4',
+  '09.5',
+  '10.0'
+];
 
 class MatchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appState = Provider.of<AppState>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(children: <Widget>[
@@ -70,7 +138,7 @@ class MatchScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 30.0, left: 16.0),
                           child: Text(
-                            '0.0',
+                            appState.getUserOvers,
                             style: TextStyle(
                                 fontFamily: 'Oxygen',
                                 fontSize: 24,
@@ -94,7 +162,7 @@ class MatchScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 14.0, left: 16.0),
                           child: Text(
-                            '100',
+                            appState.getUserScore.toString(),
                             style: TextStyle(
                                 fontFamily: 'Oxygen',
                                 fontSize: 24,
@@ -102,7 +170,8 @@ class MatchScreen extends StatelessWidget {
                           ),
                         )
                       ],
-                    )
+                    ),
+                    Text(appState.getCurrentUserInput.toString())
                   ],
                 ),
                 Container(
@@ -129,7 +198,7 @@ class MatchScreen extends StatelessWidget {
                           padding:
                               const EdgeInsets.only(top: 30.0, right: 32.0),
                           child: Text(
-                            '0.0',
+                            appState.getCpuOvers,
                             style: TextStyle(
                                 fontFamily: 'Oxygen',
                                 fontSize: 24,
@@ -155,7 +224,7 @@ class MatchScreen extends StatelessWidget {
                           padding:
                               const EdgeInsets.only(top: 14.0, right: 32.0),
                           child: Text(
-                            '100',
+                            appState.getCpuScore.toString(),
                             style: TextStyle(
                                 fontFamily: 'Oxygen',
                                 fontSize: 24,
@@ -163,7 +232,8 @@ class MatchScreen extends StatelessWidget {
                           ),
                         )
                       ],
-                    )
+                    ),
+                    Text(appState.getCurrentCpuInput.toString())
                   ],
                 ),
               ],
@@ -186,27 +256,9 @@ class MatchScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Material(
-                            type: MaterialType.transparency,
-                            child: InkWell(
-                              onTap: () {},
-                              child: inputButton('6'),
-                              borderRadius: BorderRadius.circular(60),
-                            )),
-                        Material(
-                            type: MaterialType.transparency,
-                            child: InkWell(
-                              onTap: () {},
-                              child: inputButton('5'),
-                              borderRadius: BorderRadius.circular(60),
-                            )),
-                        Material(
-                            type: MaterialType.transparency,
-                            child: InkWell(
-                              onTap: () {},
-                              child: inputButton('4'),
-                              borderRadius: BorderRadius.circular(60),
-                            ))
+                        inputSelection('6', context),
+                        inputSelection('5', context),
+                        inputSelection('4', context)
                       ],
                     ),
                   ),
@@ -215,27 +267,9 @@ class MatchScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Material(
-                            type: MaterialType.transparency,
-                            child: InkWell(
-                              onTap: () {},
-                              child: inputButton('3'),
-                              borderRadius: BorderRadius.circular(60),
-                            )),
-                        Material(
-                            type: MaterialType.transparency,
-                            child: InkWell(
-                              onTap: () {},
-                              child: inputButton('2'),
-                              borderRadius: BorderRadius.circular(60),
-                            )),
-                        Material(
-                            type: MaterialType.transparency,
-                            child: InkWell(
-                              onTap: () {},
-                              child: inputButton('1'),
-                              borderRadius: BorderRadius.circular(60),
-                            ))
+                        inputSelection('3', context),
+                        inputSelection('2', context),
+                        inputSelection('1', context)
                       ],
                     ),
                   ),
@@ -243,20 +277,7 @@ class MatchScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Material(
-                            type: MaterialType.transparency,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ResultPage()));
-                              },
-                              child: inputButton('0'),
-                              borderRadius: BorderRadius.circular(60),
-                            ))
-                      ],
+                      children: <Widget>[inputSelection('0', context)],
                     ),
                   )
                 ],
@@ -265,4 +286,132 @@ class MatchScreen extends StatelessWidget {
       ]),
     );
   }
+}
+
+Widget inputSelection(String input, context) {
+  final appState = Provider.of<AppState>(context);
+  bool firstBattingCompleted = appState.getFirstBattingCompleted;
+  return Material(
+      type: MaterialType.transparency,
+      child: InkWell(
+        onTap: () {
+          appState.setCurrentUserInput(int.parse(input));
+          if (firstBattingCompleted == false) {
+            firstBatting(context, int.parse(input));
+          } else {
+            secondBatting(context, int.parse(input));
+          }
+        },
+        child: inputButton(input),
+        borderRadius: BorderRadius.circular(60),
+      ));
+}
+
+void firstBatting(context, userInput) {
+  final appState = Provider.of<AppState>(context);
+  int userOrCpu = appState.getBattingOrBowling;
+  int totalBalls = appState.getTotalOvers;
+  int cpuScore = appState.getCpuScore;
+  int userScore = appState.getUserScore;
+  int ballsCompleted = appState.getBallsCompleted;
+  int cpuInputScore = cpuInput();
+  appState.setCurrentCpuInput(cpuInputScore);
+  if (userOrCpu == 0) {
+    if (ballsCompleted < totalBalls - 1) {
+      if (userInput != cpuInputScore) {
+        appState.setCpuScore(cpuScore + cpuInputScore);
+        appState.setBallsCompleted(ballsCompleted + 1);
+        appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
+      } else if (userInput == cpuInputScore) {
+        appState.setBallsCompleted(0);
+        appState.setFirstBattingCompleted(true);
+        appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
+      }
+    } else if (ballsCompleted == totalBalls - 1) {
+      appState.setCpuScore(cpuScore + cpuInputScore);
+      appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
+      appState.setFirstBattingCompleted(true);
+      appState.setBallsCompleted(0);
+    }
+  } else {
+    if (ballsCompleted < totalBalls - 1) {
+      if (userInput != cpuInputScore) {
+        appState.setUserScore(userScore + userInput);
+        appState.setBallsCompleted(ballsCompleted + 1);
+        appState.setUserOvers(oversBowl[ballsCompleted + 1]);
+      } else if (userInput == cpuInputScore) {
+        appState.setFirstBattingCompleted(true);
+        appState.setBallsCompleted(0);
+        appState.setUserOvers(oversBowl[ballsCompleted + 1]);
+      }
+    } else if (ballsCompleted == totalBalls - 1) {
+      appState.setUserScore(userScore + userInput);
+      appState.setUserOvers(oversBowl[ballsCompleted + 1]);
+      appState.setFirstBattingCompleted(true);
+      appState.setBallsCompleted(0);
+    }
+  }
+}
+
+void secondBatting(context, userInput) {
+  final appState = Provider.of<AppState>(context);
+  int userOrCpu = appState.getBattingOrBowling;
+  int totalBalls = appState.getTotalOvers;
+  int cpuScore = appState.getCpuScore;
+  int userScore = appState.getUserScore;
+  int ballsCompleted = appState.getBallsCompleted;
+  int cpuInputScore = cpuInput();
+  appState.setCurrentCpuInput(cpuInputScore);
+  if (userOrCpu == 0) {
+    if (ballsCompleted < totalBalls - 1) {
+      if (userInput != cpuInputScore) {
+        appState.setUserScore(userScore + userInput);
+        appState.setBallsCompleted(ballsCompleted + 1);
+        appState.setUserOvers(oversBowl[ballsCompleted + 1]);
+        if (appState.getUserScore > appState.getCpuScore) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ResultPage()));
+        }
+      } else if (userInput == cpuInputScore) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ResultPage()));
+      }
+    } else if (ballsCompleted == totalBalls - 1) {
+      appState.setUserScore(userScore + userInput);
+      appState.setUserOvers(oversBowl[ballsCompleted + 1]);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ResultPage()));
+    }
+  } else {
+    if (ballsCompleted < totalBalls - 1) {
+      if (userInput != cpuInputScore) {
+        appState.setCpuScore(cpuScore + cpuInputScore);
+        appState.setBallsCompleted(ballsCompleted + 1);
+        appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
+        if (appState.getCpuScore > appState.getUserScore) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ResultPage()));
+        }
+      } else if (userInput == cpuInputScore) {
+        appState.setBallsCompleted(0);
+        appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ResultPage()));
+      }
+    } else if (ballsCompleted == totalBalls - 1) {
+      appState.setCpuScore(cpuScore + cpuInputScore);
+      appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
+      appState.setBallsCompleted(ballsCompleted + 1);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ResultPage()));
+    }
+  }
+}
+
+int cpuInput() {
+  int min = 0;
+  int max = 7;
+  final rdm = new Random();
+  int rnd = min + rdm.nextInt(max - min);
+  return rnd;
 }
