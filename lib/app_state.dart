@@ -11,8 +11,9 @@ class AppState with ChangeNotifier {
   int userScore = 0;
   int ballsCompleted = 0;
   bool firstBattingCompleted = false;
-  String cpuOvers = '00.0';
-  String userOvers = '00.0';
+  bool getBack = true;
+  String cpuOvers = '0.0';
+  String userOvers = '0.0';
   int currentUserInput = 0;
   int currentCpuInput = 0;
   
@@ -76,6 +77,11 @@ class AppState with ChangeNotifier {
     notifyListeners();
   }
 
+  void setGetBack(bool text){
+    getBack = text;
+    notifyListeners();
+  }
+
   int get getTotalOvers => totalOvers;
   int get getSelectedInput => selectedInput;
   int get getOddOrEven => oddOrEven;
@@ -88,4 +94,5 @@ class AppState with ChangeNotifier {
   String get getUserOvers => userOvers;
   int get getCurrentUserInput => currentUserInput;
   int get getCurrentCpuInput => currentCpuInput;
+  bool get getGetBack => getBack;
 }

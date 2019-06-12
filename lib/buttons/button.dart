@@ -18,10 +18,10 @@ Widget buttons(icon, text, borderColor, iconColor, iconBorderColor, textColor) {
               ),
             ),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25.0),
+                borderRadius: BorderRadius.circular(20.0),
                 color: iconBorderColor),
-            width: 45,
-            height: 45,
+            width: 40,
+            height: 40,
           ),
         ),
         Text(

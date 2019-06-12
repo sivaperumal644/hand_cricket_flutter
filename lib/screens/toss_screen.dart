@@ -50,7 +50,7 @@ class TossPageState extends State<TossPage> {
                   Color.fromRGBO(255, 255, 255, 0.5),
                   Color.fromRGBO(229, 109, 109, 100),
                   Colors.white,
-                  Color.fromRGBO(255, 255, 255, 0.5)),
+                  Colors.white),
               oddOrEvenInput(
                   context,
                   0,
@@ -59,7 +59,7 @@ class TossPageState extends State<TossPage> {
                   Color.fromRGBO(255, 255, 255, 0.5),
                   Color.fromRGBO(229, 109, 109, 100),
                   Colors.white,
-                  Color.fromRGBO(255, 255, 255, 0.5))
+                  Colors.white)
             ],
           ),
         ],

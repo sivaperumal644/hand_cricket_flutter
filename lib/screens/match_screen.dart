@@ -4,286 +4,212 @@ import 'result_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:hand_cricket/app_state.dart';
 import 'dart:math';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:toast/toast.dart';
 
 final oversBowl = [
-  '00.0',
-  '00.1',
-  '00.2',
-  '00.3',
-  '00.4',
-  '00.5',
-  '01.0',
-  '01.1',
-  '01.2',
-  '01.3',
-  '01.4',
-  '01.5',
-  '02.0',
-  '02.1',
-  '02.2',
-  '02.3',
-  '02.4',
-  '02.5',
-  '03.0',
-  '03.1',
-  '03.2',
-  '03.3',
-  '03.4',
-  '03.5',
-  '04.0',
-  '04.1',
-  '04.2',
-  '04.3',
-  '04.4',
-  '04.5',
-  '05.0',
-  '05.1',
-  '05.2',
-  '05.3',
-  '05.4',
-  '05.5',
-  '06.0',
-  '06.1',
-  '06.2',
-  '06.3',
-  '06.4',
-  '06.5',
-  '07.0',
-  '07.1',
-  '07.2',
-  '07.3',
-  '07.4',
-  '07.5',
-  '08.0',
-  '08.1',
-  '08.2',
-  '08.3',
-  '08.4',
-  '08.5',
-  '09.0',
-  '09.1',
-  '09.2',
-  '09.3',
-  '09.4',
-  '09.5',
+  '0.0',
+  '0.1',
+  '0.2',
+  '0.3',
+  '0.4',
+  '0.5',
+  '1.0',
+  '1.1',
+  '1.2',
+  '1.3',
+  '1.4',
+  '1.5',
+  '2.0',
+  '2.1',
+  '2.2',
+  '2.3',
+  '2.4',
+  '2.5',
+  '3.0',
+  '3.1',
+  '3.2',
+  '3.3',
+  '3.4',
+  '3.5',
+  '4.0',
+  '4.1',
+  '4.2',
+  '4.3',
+  '4.4',
+  '4.5',
+  '5.0',
+  '5.1',
+  '5.2',
+  '5.3',
+  '5.4',
+  '5.5',
+  '6.0',
+  '6.1',
+  '6.2',
+  '6.3',
+  '6.4',
+  '6.5',
+  '7.0',
+  '7.1',
+  '7.2',
+  '7.3',
+  '7.4',
+  '7.5',
+  '8.0',
+  '8.1',
+  '8.2',
+  '8.3',
+  '8.4',
+  '8.5',
+  '9.0',
+  '9.1',
+  '9.2',
+  '9.3',
+  '9.4',
+  '9.5',
   '10.0'
+];
+
+final currentInputImage = [
+  'images/zero.svg',
+  'images/one.svg',
+  'images/two.svg',
+  'images/three.svg',
+  'images/four.svg',
+  'images/five.svg',
+  'images/six.svg'
 ];
 
 class MatchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width / 2;
+    final screenHeight = MediaQuery.of(context).size.height - 90;
     final appState = Provider.of<AppState>(context);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(children: <Widget>[
-        Column(
-          children: <Widget>[
-            Container(
-              height: 90,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 50.0),
-                          child: Text(
-                            'YOU',
-                            style: TextStyle(
-                                color: Color(0xffDD3F3F),
-                                fontFamily: 'Oxygen',
-                                fontSize: 18),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 50.0),
-                          child: Text('CPU',
+    return WillPopScope(
+      onWillPop: () async {
+        Toast.show('You cannot go back now', context,
+            duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Stack(children: <Widget>[
+          Column(
+            children: <Widget>[
+              Container(
+                height: 90,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(top: 50.0),
+                            child: Text(
+                              'YOU',
                               style: TextStyle(
-                                  color: Color.fromRGBO(57, 57, 57, 0.5),
+                                  color: Color(0xffDD3F3F),
                                   fontFamily: 'Oxygen',
-                                  fontSize: 18)),
-                        )
-                      ],
+                                  fontSize: 18),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 50.0),
+                            child: Text('CPU',
+                                style: TextStyle(
+                                    color: Color.fromRGBO(57, 57, 57, 0.5),
+                                    fontFamily: 'Oxygen',
+                                    fontSize: 18)),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(255, 150, 150, 0.6),
+                        blurRadius: 20,
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white),
               ),
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(255, 150, 150, 0.6),
-                  blurRadius: 20,
-                ),
-              ], borderRadius: BorderRadius.circular(20), color: Colors.white),
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left: 32.0, top: 32.0),
-                          child: Text(
-                            'OVERS',
-                            style: TextStyle(
-                                color: Color(0xffA8A8A8),
-                                fontFamily: 'Oxygen',
-                                fontSize: 14),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30.0, left: 16.0),
-                          child: Text(
-                            appState.getUserOvers,
-                            style: TextStyle(
-                                fontFamily: 'Oxygen',
-                                fontSize: 24,
-                                color: Color(0xffDD3F3F)),
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left: 32.0, top: 16.0),
-                          child: Text(
-                            'SCORE',
-                            style: TextStyle(
-                                color: Color(0xffA8A8A8),
-                                fontFamily: 'Oxygen',
-                                fontSize: 14),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 14.0, left: 16.0),
-                          child: Text(
-                            appState.getUserScore.toString(),
-                            style: TextStyle(
-                                fontFamily: 'Oxygen',
-                                fontSize: 24,
-                                color: Color(0xffDD3F3F)),
-                          ),
-                        )
-                      ],
-                    ),
-                    Text(appState.getCurrentUserInput.toString())
-                  ],
-                ),
-                Container(
-                  width: 3,
-                  height: 400,
-                  color: Color.fromRGBO(0, 0, 0, 0.08),
-                ),
-                Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(top: 32.0, right: 16.0),
-                          child: Text(
-                            'OVERS',
-                            style: TextStyle(
-                                color: Color(0xffA8A8A8),
-                                fontFamily: 'Oxygen',
-                                fontSize: 14),
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(top: 30.0, right: 32.0),
-                          child: Text(
-                            appState.getCpuOvers,
-                            style: TextStyle(
-                                fontFamily: 'Oxygen',
-                                fontSize: 24,
-                                color: Color.fromRGBO(119, 119, 119, 1)),
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(top: 16.0, right: 16.0),
-                          child: Text(
-                            'SCORE',
-                            style: TextStyle(
-                                color: Color(0xffA8A8A8),
-                                fontFamily: 'Oxygen',
-                                fontSize: 14),
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(top: 14.0, right: 32.0),
-                          child: Text(
-                            appState.getCpuScore.toString(),
-                            style: TextStyle(
-                                fontFamily: 'Oxygen',
-                                fontSize: 24,
-                                color: Color.fromRGBO(119, 119, 119, 1)),
-                          ),
-                        )
-                      ],
-                    ),
-                    Text(appState.getCurrentCpuInput.toString())
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-        Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 350,
-              decoration: BoxDecoration(
-                  color: Color(0xffDD3F3F),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(60),
-                      topRight: Radius.circular(60))),
-              child: Column(
+              Row(
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 22.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        inputSelection('6', context),
-                        inputSelection('5', context),
-                        inputSelection('4', context)
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        inputSelection('3', context),
-                        inputSelection('2', context),
-                        inputSelection('1', context)
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[inputSelection('0', context)],
-                    ),
-                  )
+                  Container(
+                      decoration: BoxDecoration(
+                          border: Border(
+                              right: BorderSide(
+                                  width: 2,
+                                  color: Color.fromRGBO(0, 0, 0, 0.06)))),
+                      width: screenWidth,
+                      height: screenHeight,
+                      child: displayMatch(
+                          appState.getUserOvers.toString(),
+                          appState.getUserScore.toString(),
+                          appState.getCurrentUserInput)),
+                  Container(
+                      width: screenWidth,
+                      height: screenHeight,
+                      child: displayMatch(
+                          appState.getCpuOvers.toString(),
+                          appState.getCpuScore.toString(),
+                          appState.getCurrentCpuInput))
                 ],
-              ),
-            ))
-      ]),
+              )
+            ],
+          ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: 350,
+                decoration: BoxDecoration(
+                    color: Color(0xffDD3F3F),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(60),
+                        topRight: Radius.circular(60))),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 22.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          inputSelection('6', context),
+                          inputSelection('5', context),
+                          inputSelection('4', context)
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          inputSelection('3', context),
+                          inputSelection('2', context),
+                          inputSelection('1', context)
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[inputSelection('0', context)],
+                      ),
+                    )
+                  ],
+                ),
+              ))
+        ]),
+      ),
     );
   }
 }
@@ -414,4 +340,60 @@ int cpuInput() {
   final rdm = new Random();
   int rnd = min + rdm.nextInt(max - min);
   return rnd;
+}
+
+Widget displayMatch(oversCompleted, runsScored, currentInput) {
+  return Column(
+    children: <Widget>[
+      Row(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 24.0, top: 32.0),
+            child: Text(
+              'OVERS',
+              style: TextStyle(
+                  color: Color(0xffA8A8A8), fontFamily: 'Oxygen', fontSize: 14),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 24.0, left: 16.0),
+            child: Text(
+              oversCompleted,
+              style: TextStyle(
+                  fontFamily: 'Oxygen', fontSize: 24, color: Color(0xffDD3F3F)),
+            ),
+          )
+        ],
+      ),
+      Row(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 24.0, top: 16.0),
+            child: Text(
+              'SCORE',
+              style: TextStyle(
+                  color: Color(0xffA8A8A8), fontFamily: 'Oxygen', fontSize: 14),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0, left: 16.0),
+            child: Text(
+              runsScored,
+              style: TextStyle(
+                  fontFamily: 'Oxygen', fontSize: 24, color: Color(0xffDD3F3F)),
+            ),
+          )
+        ],
+      ),
+      // Text(currentInput)
+      Padding(
+        padding: const EdgeInsets.only(top: 32.0),
+        child: SvgPicture.asset(
+          currentInputImage[currentInput],
+          width: 60,
+          height: 60,
+        ),
+      ),
+    ],
+  );
 }
