@@ -32,3 +32,25 @@ Widget buttons(icon, text, borderColor, iconColor, iconBorderColor, textColor) {
     ),
   );
 }
+
+Widget gotItButton() {
+  return Container(
+    height: 80,
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        border:
+            Border.all(color: Color.fromRGBO(255, 255, 255, 0.5), width: 3)),
+    child: Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'GOT IT',
+            style: TextStyle(
+                fontSize: 24, color: Color.fromRGBO(255, 255, 255, 0.5)),
+          )
+        ],
+      ),
+    ),
+  );
+}

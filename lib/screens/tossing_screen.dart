@@ -27,11 +27,12 @@ class TossingPageState extends State<TossingPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async{
-        Toast.show('You cannot go back now', context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+      onWillPop: () async {
+        Toast.show('You cannot go back now', context,
+            duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
         return false;
       },
-          child: Scaffold(
+      child: Scaffold(
         backgroundColor: Color.fromRGBO(221, 63, 63, 50),
         body: Column(
           children: <Widget>[
@@ -59,7 +60,8 @@ class TossingPageState extends State<TossingPage> {
                     height: 220,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(110),
-                        border: Border.all(color: tossContainerColor, width: 5)),
+                        border:
+                            Border.all(color: tossContainerColor, width: 5)),
                   ),
                 ),
                 Center(
@@ -197,33 +199,13 @@ class TossingPageState extends State<TossingPage> {
                         fontWeight: FontWeight.bold))
               ]));
           bowling = InkWell(
-            borderRadius: BorderRadius.circular(20),
-            onTap: () {
-              selectBattingOrBowling(selection, context);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MatchScreen()));
-            },
-            child: Container(
-              height: 80,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(
-                      color: Color.fromRGBO(255, 255, 255, 0.5), width: 3)),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'GOT IT',
-                      style: TextStyle(
-                          fontSize: 24,
-                          color: Color.fromRGBO(255, 255, 255, 0.5)),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          );
+              borderRadius: BorderRadius.circular(20),
+              onTap: () {
+                selectBattingOrBowling(selection, context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MatchScreen()));
+              },
+              child: gotItButton());
         }
       });
     });

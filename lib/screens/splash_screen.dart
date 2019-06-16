@@ -46,7 +46,7 @@ class SplashScreenState extends State<SplashScreen> {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset('images/Oval.png'),
+            Image.asset('images/app_logo.png', height: 120, width: 120,),
             Padding(
               padding: EdgeInsets.only(top: 143.5),
               child: Text(

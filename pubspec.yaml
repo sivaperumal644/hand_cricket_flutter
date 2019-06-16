@@ -44,7 +44,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images/Oval.png
+    - images/app_logo.png
     - images/zero.svg
     - images/one.svg
     - images/two.svg

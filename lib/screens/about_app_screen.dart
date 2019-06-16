@@ -8,7 +8,7 @@ class AboutApp extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(top: 98.0),
-            child: Center(child: Image.asset('images/Oval.png')),
+            child: Center(child: Image.asset('images/app_logo.png', height: 120, width: 120,)),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 32.0),
