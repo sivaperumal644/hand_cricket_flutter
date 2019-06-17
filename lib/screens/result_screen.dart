@@ -25,16 +25,16 @@ class ResultPage extends StatelessWidget {
                 child: Text('MATCH CONCLUDED',
                     style: TextStyle(
                         fontSize: 24,
-                        fontFamily: 'Oxygen-bold',
+                        fontWeight: FontWeight.bold,
                         color: Color.fromRGBO(0, 0, 0, 0.2))),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 24.0),
                 child: Text('FINAL SCORES',
                     style: TextStyle(
-                        fontSize: 18,
-                        color: Color.fromRGBO(0, 0, 0, 0.2),
-                        fontFamily: 'Oxygen')),
+                      fontSize: 18,
+                      color: Color.fromRGBO(0, 0, 0, 0.2),
+                    )),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 24.0),
@@ -44,14 +44,12 @@ class ResultPage extends StatelessWidget {
                     Text(
                       appState.getUserScore.toString(),
                       style: TextStyle(
-                          fontFamily: 'Oxygen',
                           fontSize: 36,
                           color: Color.fromRGBO(221, 63, 63, 100)),
                     ),
                     Text(
                       appState.getCpuScore.toString(),
                       style: TextStyle(
-                          fontFamily: 'Oxygen',
                           fontSize: 36,
                           color: Color.fromRGBO(106, 106, 106, 100)),
                     )
@@ -64,16 +62,12 @@ class ResultPage extends StatelessWidget {
                   Text(
                     'YOU',
                     style: TextStyle(
-                        fontFamily: 'Oxygen',
-                        fontSize: 16,
-                        color: Color.fromRGBO(0, 0, 0, 0.15)),
+                        fontSize: 16, color: Color.fromRGBO(0, 0, 0, 0.15)),
                   ),
                   Text(
                     'CPU',
                     style: TextStyle(
-                        fontFamily: 'Oxygen',
-                        fontSize: 16,
-                        color: Color.fromRGBO(0, 0, 0, 0.15)),
+                        fontSize: 16, color: Color.fromRGBO(0, 0, 0, 0.15)),
                   )
                 ],
               ),
@@ -81,18 +75,14 @@ class ResultPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 32.0),
                 child: Text('RUN DIFFERENCE',
                     style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'Oxygen',
-                        color: Color.fromRGBO(0, 0, 0, 0.2))),
+                        fontSize: 18, color: Color.fromRGBO(0, 0, 0, 0.2))),
               ),
               difference(context),
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
                 child: Text('RESULT',
                     style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'Oxygen',
-                        color: Color.fromRGBO(0, 0, 0, 0.2))),
+                        fontSize: 18, color: Color.fromRGBO(0, 0, 0, 0.2))),
               ),
               winner(context),
               Expanded(
@@ -144,7 +134,6 @@ class ResultPage extends StatelessWidget {
                               'Thank you for playing.',
                               style: TextStyle(
                                   fontSize: 14,
-                                  fontFamily: 'Oxygen',
                                   color: Color.fromRGBO(111, 111, 111, 100)),
                             ),
                           ],
@@ -162,7 +151,6 @@ class ResultPage extends StatelessWidget {
                               'Developed by Siva Perumal K',
                               style: TextStyle(
                                   fontSize: 14,
-                                  fontFamily: 'Oxygen',
                                   color: Color.fromRGBO(111, 111, 111, 100)),
                             ),
                           ],
@@ -200,28 +188,22 @@ Widget winner(context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Text('Opponent wins the match.',
-          style: TextStyle(
-              fontFamily: 'Oxygen',
-              fontSize: 24,
-              color: Color.fromRGBO(51, 51, 51, 100))),
+          style:
+              TextStyle(fontSize: 24, color: Color.fromRGBO(51, 51, 51, 100))),
     );
   } else if (appState.getUserScore > appState.getCpuScore) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Text('You win the match.',
-          style: TextStyle(
-              fontFamily: 'Oxygen',
-              fontSize: 24,
-              color: Color.fromRGBO(51, 51, 51, 100))),
+          style:
+              TextStyle(fontSize: 24, color: Color.fromRGBO(51, 51, 51, 100))),
     );
   } else {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Text('Match was drawn.',
-          style: TextStyle(
-              fontFamily: 'Oxygen',
-              fontSize: 24,
-              color: Color.fromRGBO(51, 51, 51, 100))),
+          style:
+              TextStyle(fontSize: 24, color: Color.fromRGBO(51, 51, 51, 100))),
     );
   }
 }

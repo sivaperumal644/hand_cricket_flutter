@@ -112,9 +112,7 @@ class MatchScreen extends StatelessWidget {
                             child: Text(
                               'YOU',
                               style: TextStyle(
-                                  color: Color(0xffDD3F3F),
-                                  fontFamily: 'Oxygen',
-                                  fontSize: 18),
+                                  color: Color(0xffDD3F3F), fontSize: 18),
                             ),
                           ),
                           Padding(
@@ -122,7 +120,6 @@ class MatchScreen extends StatelessWidget {
                             child: Text('CPU',
                                 style: TextStyle(
                                     color: Color.fromRGBO(57, 57, 57, 0.5),
-                                    fontFamily: 'Oxygen',
                                     fontSize: 18)),
                           )
                         ],
@@ -252,12 +249,24 @@ void firstBatting(context, userInput) {
         appState.setBallsCompleted(0);
         appState.setFirstBattingCompleted(true);
         appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
+        showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+                  title: Text("That's a Wicket"),
+                  content: Text('CPU is out.'),
+                ));
       }
     } else if (ballsCompleted == totalBalls - 1) {
       appState.setCpuScore(cpuScore + cpuInputScore);
       appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
       appState.setFirstBattingCompleted(true);
       appState.setBallsCompleted(0);
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                title: Text("End of innings."),
+                content: Text('you have to bat.'),
+              ));
     }
   } else {
     if (ballsCompleted < totalBalls - 1) {
@@ -269,12 +278,24 @@ void firstBatting(context, userInput) {
         appState.setFirstBattingCompleted(true);
         appState.setBallsCompleted(0);
         appState.setUserOvers(oversBowl[ballsCompleted + 1]);
+        showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+                  title: Text("That's a Wicket"),
+                  content: Text('you are out.'),
+                ));
       }
     } else if (ballsCompleted == totalBalls - 1) {
       appState.setUserScore(userScore + userInput);
       appState.setUserOvers(oversBowl[ballsCompleted + 1]);
       appState.setFirstBattingCompleted(true);
       appState.setBallsCompleted(0);
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                title: Text("End of innings"),
+                content: Text('you have to bowl now.'),
+              ));
     }
   }
 }
@@ -351,16 +372,14 @@ Widget displayMatch(oversCompleted, runsScored, currentInput) {
             padding: const EdgeInsets.only(left: 24.0, top: 32.0),
             child: Text(
               'OVERS',
-              style: TextStyle(
-                  color: Color(0xffA8A8A8), fontFamily: 'Oxygen', fontSize: 14),
+              style: TextStyle(color: Color(0xffA8A8A8), fontSize: 14),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 24.0, left: 16.0),
             child: Text(
               oversCompleted,
-              style: TextStyle(
-                  fontFamily: 'Oxygen', fontSize: 24, color: Color(0xffDD3F3F)),
+              style: TextStyle(fontSize: 24, color: Color(0xffDD3F3F)),
             ),
           )
         ],
@@ -371,16 +390,14 @@ Widget displayMatch(oversCompleted, runsScored, currentInput) {
             padding: const EdgeInsets.only(left: 24.0, top: 16.0),
             child: Text(
               'SCORE',
-              style: TextStyle(
-                  color: Color(0xffA8A8A8), fontFamily: 'Oxygen', fontSize: 14),
+              style: TextStyle(color: Color(0xffA8A8A8), fontSize: 14),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 16.0, left: 16.0),
             child: Text(
               runsScored,
-              style: TextStyle(
-                  fontFamily: 'Oxygen', fontSize: 24, color: Color(0xffDD3F3F)),
+              style: TextStyle(fontSize: 24, color: Color(0xffDD3F3F)),
             ),
           )
         ],

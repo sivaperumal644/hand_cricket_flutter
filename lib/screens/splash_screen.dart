@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<AppState>(
       builder: (_) => AppState(),
       child: MaterialApp(
+        theme: ThemeData(fontFamily: 'Oxygen'),
         home: Scaffold(
           body: SplashScreen(),
         ),

@@ -32,7 +32,6 @@ class HomeScreenState extends State<HomeScreen> {
                   padding: EdgeInsets.fromLTRB(20, 41, 0, 0),
                   child: Text('New Game',
                       style: TextStyle(
-                          fontFamily: 'Oxygen',
                           color: Color.fromRGBO(255, 255, 255, 0.6),
                           fontSize: 36)),
                 ),
@@ -51,7 +50,6 @@ class HomeScreenState extends State<HomeScreen> {
                           'READ THE RULES',
                           style: TextStyle(
                               fontSize: 24,
-                              fontFamily: 'Oxygen',
                               color: Colors.white),
                         ),
                       )
@@ -74,7 +72,6 @@ class HomeScreenState extends State<HomeScreen> {
                           child: Text(
                             'ABOUT APP',
                             style: TextStyle(
-                                fontFamily: 'Oxygen',
                                 color: Color.fromRGBO(255, 255, 255, 0.5),
                                 fontSize: 24),
                           ),

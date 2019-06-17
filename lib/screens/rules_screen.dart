@@ -24,9 +24,7 @@ class Rules extends StatelessWidget {
             child: Text(
               'Rules',
               style: TextStyle(
-                  fontFamily: 'Oxygen',
-                  fontSize: 36,
-                  color: Color.fromRGBO(255, 255, 255, 0.6)),
+                  fontSize: 36, color: Color.fromRGBO(255, 255, 255, 0.6)),
             ),
           ),
           Padding(
@@ -97,9 +95,9 @@ Widget rules(index, content) {
                 Text(
                   content,
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontFamily: 'Oxygen-bold.ttf'),
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
                 ),
               ],
             ),

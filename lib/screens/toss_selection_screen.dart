@@ -35,9 +35,7 @@ class TossSelectionState extends State<TossSelection> {
                 child: Text(
                   'Select a number',
                   style: TextStyle(
-                      color: Color.fromRGBO(255, 255, 255, 0.5),
-                      fontFamily: 'Oxygen',
-                      fontSize: 36),
+                      color: Color.fromRGBO(255, 255, 255, 0.5), fontSize: 36),
                 ),
               ),
               Padding(

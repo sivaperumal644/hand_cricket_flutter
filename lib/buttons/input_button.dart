@@ -11,8 +11,7 @@ Widget inputButton(input) {
     child: Center(
       child: Text(
         input,
-        style:
-            TextStyle(fontSize: 36, fontFamily: 'Oxygen', color: Colors.white),
+        style: TextStyle(fontSize: 36, color: Colors.white),
       ),
     ),
   );

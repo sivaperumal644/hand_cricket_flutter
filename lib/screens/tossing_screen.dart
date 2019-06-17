@@ -69,10 +69,7 @@ class TossingPageState extends State<TossingPage> {
                   padding: const EdgeInsets.only(top: 90.0),
                   child: Text(
                     tossResult,
-                    style: TextStyle(
-                        fontFamily: 'Oxygen',
-                        fontSize: 36,
-                        color: tossContainerColor),
+                    style: TextStyle(fontSize: 36, color: tossContainerColor),
                   ),
                 ))
               ]),
@@ -85,7 +82,6 @@ class TossingPageState extends State<TossingPage> {
                   child: Text(
                     winner,
                     style: TextStyle(
-                        fontFamily: 'Oxygen',
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
@@ -130,9 +126,7 @@ class TossingPageState extends State<TossingPage> {
             child: Text(
               'What would you like to do?',
               style: TextStyle(
-                  fontFamily: 'Oxygen',
-                  fontSize: 20,
-                  color: Color.fromRGBO(255, 255, 255, 0.5)),
+                  fontSize: 20, color: Color.fromRGBO(255, 255, 255, 0.5)),
             ),
           );
           batting = InkWell(
@@ -169,16 +163,12 @@ class TossingPageState extends State<TossingPage> {
             padding: const EdgeInsets.only(top: 16.0),
             child: RichText(
                 text: TextSpan(
-                    style: TextStyle(
-                        fontFamily: 'Oxygen',
-                        fontSize: 20,
-                        color: Colors.white),
+                    style: TextStyle(fontSize: 20, color: Colors.white),
                     children: <TextSpan>[
                   TextSpan(text: 'Opponent Selected '),
                   TextSpan(
                       text: opponentChoice,
                       style: TextStyle(
-                          fontFamily: 'Oxygen',
                           fontSize: 20,
                           color: Colors.white,
                           fontWeight: FontWeight.bold))
@@ -186,14 +176,12 @@ class TossingPageState extends State<TossingPage> {
           );
           batting = RichText(
               text: TextSpan(
-                  style: TextStyle(
-                      fontFamily: 'Oxygen', fontSize: 20, color: Colors.white),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                   children: <TextSpan>[
                 TextSpan(text: 'You will play as  '),
                 TextSpan(
                     text: youHaveTo,
                     style: TextStyle(
-                        fontFamily: 'Oxygen',
                         fontSize: 20,
                         color: Colors.white,
                         fontWeight: FontWeight.bold))

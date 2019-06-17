@@ -34,7 +34,6 @@ class TossPageState extends State<TossPage> {
             child: Text(
               'Toss',
               style: TextStyle(
-                  fontFamily: 'Oxygen',
                   fontSize: 36,
                   color: Color.fromRGBO(255, 255, 255, 0.6)),
             ),
