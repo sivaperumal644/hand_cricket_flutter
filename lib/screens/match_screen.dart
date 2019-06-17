@@ -407,8 +407,8 @@ Widget displayMatch(oversCompleted, runsScored, currentInput) {
         padding: const EdgeInsets.only(top: 32.0),
         child: SvgPicture.asset(
           currentInputImage[currentInput],
-          width: 60,
-          height: 60,
+          width: 60.0,
+          height: 60.0,
         ),
       ),
     ],

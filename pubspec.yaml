@@ -26,6 +26,12 @@ dependencies:
   provider: ^3.0.0
   flutter_svg: ^0.12.4+2
   toast: ^0.1.4
+  flutter_launcher_icons: "^0.7.0"
+
+flutter_icons:
+  image_path: "images/app_logo.png"
+  android: true 
+  ios: true
 
 dev_dependencies:
   flutter_test:
