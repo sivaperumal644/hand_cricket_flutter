@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hand_cricket/buttons/button.dart';
 import 'match_screen.dart';
 import 'package:provider/provider.dart';
@@ -165,12 +166,15 @@ class TossingPageState extends State<TossingPage> {
                 text: TextSpan(
                     style: TextStyle(fontSize: 20, color: Colors.white),
                     children: <TextSpan>[
-                  TextSpan(text: 'Opponent Selected '),
+                  TextSpan(
+                      text: 'Opponent Selected ',
+                      style: TextStyle(fontFamily: 'Oxygen-regular.ttf')),
                   TextSpan(
                       text: opponentChoice,
                       style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
+                          fontFamily: 'Oxygen-regular.ttf',
                           fontWeight: FontWeight.bold))
                 ])),
           );
@@ -178,12 +182,15 @@ class TossingPageState extends State<TossingPage> {
               text: TextSpan(
                   style: TextStyle(fontSize: 20, color: Colors.white),
                   children: <TextSpan>[
-                TextSpan(text: 'You will play as  '),
+                TextSpan(
+                    text: 'You will play as  ',
+                    style: TextStyle(fontFamily: 'Oxygen-regular.ttf')),
                 TextSpan(
                     text: youHaveTo,
                     style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,
+                        fontFamily: 'Oxygen-regular.ttf',
                         fontWeight: FontWeight.bold))
               ]));
           bowling = InkWell(
