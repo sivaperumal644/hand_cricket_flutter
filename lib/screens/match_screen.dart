@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hand_cricket/buttons/input_button.dart';
 import 'result_screen.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,10 @@ import 'package:hand_cricket/app_state.dart';
 import 'dart:math';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:toast/toast.dart';
+import 'package:flutter/animation.dart';
+
+Animation userAnimation, cpuAnimation;
+AnimationController userAnimationController, cpuAnimationController;
 
 final oversBowl = [
   '0.0',
@@ -81,7 +86,15 @@ final currentInputImage = [
   'images/six.svg'
 ];
 
-class MatchScreen extends StatelessWidget {
+class MatchScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MatchScreenState();
+  }
+}
+
+class MatchScreenState extends State<MatchScreen>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width / 2;
@@ -148,6 +161,11 @@ class MatchScreen extends StatelessWidget {
                       width: screenWidth,
                       height: screenHeight,
                       child: displayMatch(
+                          context,
+                          this,
+                          userAnimation,
+                          userAnimationController,
+                          -1.0,
                           appState.getUserOvers.toString(),
                           appState.getUserScore.toString(),
                           appState.getCurrentUserInput)),
@@ -155,6 +173,11 @@ class MatchScreen extends StatelessWidget {
                       width: screenWidth,
                       height: screenHeight,
                       child: displayMatch(
+                        context,
+                        this,
+                        cpuAnimation,
+                        cpuAnimationController,
+                        1.0,
                           appState.getCpuOvers.toString(),
                           appState.getCpuScore.toString(),
                           appState.getCurrentCpuInput))
@@ -363,7 +386,16 @@ int cpuInput() {
   return rnd;
 }
 
-Widget displayMatch(oversCompleted, runsScored, currentInput) {
+Widget displayMatch(context, vsync, user, userController, start, oversCompleted,
+    runsScored, currentInput) {
+  userController =
+      AnimationController(duration: Duration(seconds: 2), vsync: vsync);
+
+  user = Tween(begin: start, end: 0.0).animate(
+      CurvedAnimation(parent: userController, curve: Curves.fastOutSlowIn));
+
+  userController.forward();
+  final width = MediaQuery.of(context).size.width;
   return Column(
     children: <Widget>[
       Row(
@@ -403,13 +435,24 @@ Widget displayMatch(oversCompleted, runsScored, currentInput) {
         ],
       ),
       // Text(currentInput)
-      Padding(
-        padding: const EdgeInsets.only(top: 32.0),
-        child: SvgPicture.asset(
-          currentInputImage[currentInput],
-          width: 60.0,
-          height: 60.0,
-        ),
+      AnimatedBuilder(
+        animation: userController,
+        builder: (context, child) {
+          return Transform(
+            transform: Matrix4.translationValues(user.value * width, 0.0, 0.0),
+            child: Center(
+                child: Container(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 32.0),
+                child: SvgPicture.asset(
+                  currentInputImage[currentInput],
+                  width: 60.0,
+                  height: 60.0,
+                ),
+              ),
+            )),
+          );
+        },
       ),
     ],
   );
