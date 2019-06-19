@@ -9,8 +9,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:toast/toast.dart';
 import 'package:flutter/animation.dart';
 
-Animation userAnimation, cpuAnimation;
-AnimationController userAnimationController, cpuAnimationController;
+Animation userAnimation, cpuAnimation, inputAnimation;
+AnimationController userAnimationController, cpuAnimationController, inputAnimationController;
+bool isInputVisible;
 
 final oversBowl = [
   '0.0',
@@ -168,7 +169,8 @@ class MatchScreenState extends State<MatchScreen>
                           -1.0,
                           appState.getUserOvers.toString(),
                           appState.getUserScore.toString(),
-                          appState.getCurrentUserInput)),
+                          appState.getCurrentUserInput,
+                          appState.getIsInputVisible)),
                   Container(
                       width: screenWidth,
                       height: screenHeight,
@@ -180,7 +182,8 @@ class MatchScreenState extends State<MatchScreen>
                         1.0,
                           appState.getCpuOvers.toString(),
                           appState.getCpuScore.toString(),
-                          appState.getCurrentCpuInput))
+                          appState.getCurrentCpuInput,
+                          appState.getIsInputVisible))
                 ],
               )
             ],
@@ -241,12 +244,16 @@ Widget inputSelection(String input, context) {
       type: MaterialType.transparency,
       child: InkWell(
         onTap: () {
+          appState.setIsInputVisible(true);
           appState.setCurrentUserInput(int.parse(input));
           if (firstBattingCompleted == false) {
             firstBatting(context, int.parse(input));
           } else {
             secondBatting(context, int.parse(input));
           }
+          Future.delayed(Duration(seconds: 3), (){
+            appState.setIsInputVisible(false);
+          });
         },
         child: inputButton(input),
         borderRadius: BorderRadius.circular(60),
@@ -387,7 +394,7 @@ int cpuInput() {
 }
 
 Widget displayMatch(context, vsync, user, userController, start, oversCompleted,
-    runsScored, currentInput) {
+    runsScored, currentInput, isVisible) {
   userController =
       AnimationController(duration: Duration(seconds: 2), vsync: vsync);
 
@@ -435,7 +442,7 @@ Widget displayMatch(context, vsync, user, userController, start, oversCompleted,
         ],
       ),
       // Text(currentInput)
-      AnimatedBuilder(
+      isVisible ? AnimatedBuilder(
         animation: userController,
         builder: (context, child) {
           return Transform(
@@ -453,7 +460,7 @@ Widget displayMatch(context, vsync, user, userController, start, oversCompleted,
             )),
           );
         },
-      ),
+      ):Text('')
     ],
   );
 }

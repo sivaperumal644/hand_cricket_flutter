@@ -16,6 +16,7 @@ class AppState with ChangeNotifier {
   String userOvers = '0.0';
   int currentUserInput = 0;
   int currentCpuInput = 0;
+  bool isInputVisible = false;
   
   void setTotalOvers(int text){
     totalOvers = text;
@@ -82,6 +83,11 @@ class AppState with ChangeNotifier {
     notifyListeners();
   }
 
+  void setIsInputVisible(bool text){
+    isInputVisible = text;
+    notifyListeners();
+  }
+
   int get getTotalOvers => totalOvers;
   int get getSelectedInput => selectedInput;
   int get getOddOrEven => oddOrEven;
@@ -95,4 +101,5 @@ class AppState with ChangeNotifier {
   int get getCurrentUserInput => currentUserInput;
   int get getCurrentCpuInput => currentCpuInput;
   bool get getGetBack => getBack;
+  bool get getIsInputVisible => isInputVisible;
 }
