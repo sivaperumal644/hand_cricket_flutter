@@ -17,8 +17,11 @@ class AppState with ChangeNotifier {
   int currentUserInput = 0;
   int currentCpuInput = 0;
   bool isInputVisible = false;
+  double inputContainerStart = 1.0;
+  double inputContainerEnd = 0.0;
   
-  void setTotalOvers(int text){
+
+  void setTotalOvers(int text) {
     totalOvers = text;
     notifyListeners();
   }
@@ -28,63 +31,73 @@ class AppState with ChangeNotifier {
     notifyListeners();
   }
 
-  void setOddOrEven(int text){
+  void setOddOrEven(int text) {
     oddOrEven = text;
     notifyListeners();
   }
 
-  void setBattingOrBowling(int text){
+  void setBattingOrBowling(int text) {
     battingOrBowling = text;
     notifyListeners();
   }
 
-  void setUserScore(int text){
+  void setUserScore(int text) {
     userScore = text;
     notifyListeners();
   }
 
-  void setCpuScore(int text){
-    cpuScore =text;
+  void setCpuScore(int text) {
+    cpuScore = text;
     notifyListeners();
   }
 
-  void setBallsCompleted(int text){
+  void setBallsCompleted(int text) {
     ballsCompleted = text;
     notifyListeners();
   }
 
-  void setFirstBattingCompleted(bool text){
+  void setFirstBattingCompleted(bool text) {
     firstBattingCompleted = text;
     notifyListeners();
   }
 
-  void setCpuOvers(String text){
+  void setCpuOvers(String text) {
     cpuOvers = text;
     notifyListeners();
   }
 
-  void setUserOvers(String text){
+  void setUserOvers(String text) {
     userOvers = text;
     notifyListeners();
   }
 
-  void setCurrentUserInput(int text){
+  void setCurrentUserInput(int text) {
     currentUserInput = text;
     notifyListeners();
   }
 
-  void setCurrentCpuInput(int text){
+  void setCurrentCpuInput(int text) {
     currentCpuInput = text;
     notifyListeners();
   }
 
-  void setGetBack(bool text){
+  void setGetBack(bool text) {
     getBack = text;
     notifyListeners();
   }
 
-  void setIsInputVisible(bool text){
+  void setIsInputVisible(bool text) {
     isInputVisible = text;
+    notifyListeners();
+  }
+
+  void setInputContainerStart(double text) {
+    inputContainerStart = text;
+    notifyListeners();
+  }
+
+  void setInputContainerEnd(double text) {
+    inputContainerEnd = text;
     notifyListeners();
   }
 
@@ -102,4 +115,6 @@ class AppState with ChangeNotifier {
   int get getCurrentCpuInput => currentCpuInput;
   bool get getGetBack => getBack;
   bool get getIsInputVisible => isInputVisible;
+  double get getInputContainerStart => inputContainerStart;
+  double get getInputContainerEnd => inputContainerEnd;
 }

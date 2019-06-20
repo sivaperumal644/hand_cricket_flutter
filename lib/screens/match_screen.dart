@@ -10,8 +10,11 @@ import 'package:toast/toast.dart';
 import 'package:flutter/animation.dart';
 
 Animation userAnimation, cpuAnimation, inputAnimation;
-AnimationController userAnimationController, cpuAnimationController, inputAnimationController;
+AnimationController userAnimationController,
+    cpuAnimationController,
+    inputAnimationController;
 bool isInputVisible;
+
 
 final oversBowl = [
   '0.0',
@@ -175,11 +178,11 @@ class MatchScreenState extends State<MatchScreen>
                       width: screenWidth,
                       height: screenHeight,
                       child: displayMatch(
-                        context,
-                        this,
-                        cpuAnimation,
-                        cpuAnimationController,
-                        1.0,
+                          context,
+                          this,
+                          cpuAnimation,
+                          cpuAnimationController,
+                          1.0,
                           appState.getCpuOvers.toString(),
                           appState.getCpuScore.toString(),
                           appState.getCurrentCpuInput,
@@ -188,49 +191,8 @@ class MatchScreenState extends State<MatchScreen>
               )
             ],
           ),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 350,
-                decoration: BoxDecoration(
-                    color: Color(0xffDD3F3F),
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(60),
-                        topRight: Radius.circular(60))),
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 22.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          inputSelection('6', context),
-                          inputSelection('5', context),
-                          inputSelection('4', context)
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          inputSelection('3', context),
-                          inputSelection('2', context),
-                          inputSelection('1', context)
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[inputSelection('0', context)],
-                      ),
-                    )
-                  ],
-                ),
-              ))
+          inputSelectionContainer(context, this, appState.getInputContainerStart, appState.getInputContainerEnd, inputAnimation,
+              inputAnimationController)
         ]),
       ),
     );
@@ -246,13 +208,17 @@ Widget inputSelection(String input, context) {
         onTap: () {
           appState.setIsInputVisible(true);
           appState.setCurrentUserInput(int.parse(input));
+          appState.setInputContainerStart(0.0);
+          appState.setInputContainerEnd(1.0);
           if (firstBattingCompleted == false) {
             firstBatting(context, int.parse(input));
           } else {
             secondBatting(context, int.parse(input));
           }
-          Future.delayed(Duration(seconds: 3), (){
+          Future.delayed(Duration(seconds: 2), () {
             appState.setIsInputVisible(false);
+            appState.setInputContainerStart(1.0);
+            appState.setInputContainerEnd(0.0);
           });
         },
         child: inputButton(input),
@@ -442,25 +408,92 @@ Widget displayMatch(context, vsync, user, userController, start, oversCompleted,
         ],
       ),
       // Text(currentInput)
-      isVisible ? AnimatedBuilder(
-        animation: userController,
-        builder: (context, child) {
-          return Transform(
-            transform: Matrix4.translationValues(user.value * width, 0.0, 0.0),
-            child: Center(
-                child: Container(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 32.0),
-                child: SvgPicture.asset(
-                  currentInputImage[currentInput],
-                  width: 60.0,
-                  height: 60.0,
-                ),
+      isVisible
+          ? AnimatedBuilder(
+              animation: userController,
+              builder: (context, child) {
+                return Transform(
+                  transform:
+                      Matrix4.translationValues(user.value * width, 0.0, 0.0),
+                  child: Center(
+                      child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 32.0),
+                      child: SvgPicture.asset(
+                        currentInputImage[currentInput],
+                        width: 60.0,
+                        height: 60.0,
+                      ),
+                    ),
+                  )),
+                );
+              },
+            )
+          : Text('')
+    ],
+  );
+}
+
+Widget inputSelectionContainer(
+    context, vsync, start, end, animation, animationController) {
+  final height = 350;
+  animationController =
+      AnimationController(duration: Duration(seconds: 2), vsync: vsync);
+
+  animation = Tween(begin: start, end: end).animate(CurvedAnimation(
+      parent: animationController, curve: Curves.fastOutSlowIn));
+
+  animationController.forward();
+  return AnimatedBuilder(
+    animation: animationController,
+    builder: (context, child) {
+      return Transform(
+        transform:
+            Matrix4.translationValues(0.0, animation.value * height, 0.0),
+        child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 350,
+              decoration: BoxDecoration(
+                  color: Color(0xffDD3F3F),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(60),
+                      topRight: Radius.circular(60))),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 22.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        inputSelection('6', context),
+                        inputSelection('5', context),
+                        inputSelection('4', context)
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        inputSelection('3', context),
+                        inputSelection('2', context),
+                        inputSelection('1', context)
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[inputSelection('0', context)],
+                    ),
+                  )
+                ],
               ),
             )),
-          );
-        },
-      ):Text('')
-    ],
+      );
+    },
   );
 }
