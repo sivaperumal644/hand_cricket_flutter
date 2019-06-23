@@ -3,7 +3,6 @@ import 'home_screen.dart';
 import 'package:hand_cricket/buttons/button.dart';
 import 'package:hand_cricket/app_state.dart';
 import 'package:provider/provider.dart';
-import 'package:toast/toast.dart';
 
 class ResultPage extends StatelessWidget {
   @override
@@ -11,8 +10,7 @@ class ResultPage extends StatelessWidget {
     final appState = Provider.of<AppState>(context);
     return WillPopScope(
       onWillPop: () async {
-        Toast.show('You cannot go back now', context,
-            duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
         return false;
       },
       child: Scaffold(
@@ -103,6 +101,7 @@ class ResultPage extends StatelessWidget {
                             appState.setCurrentCpuInput(0);
                             appState.setCurrentUserInput(0);
                             appState.setGetBack(false);
+                            appState.setIsMatchStart(false);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

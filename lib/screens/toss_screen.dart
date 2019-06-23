@@ -3,6 +3,7 @@ import 'package:hand_cricket/buttons/button.dart';
 import 'toss_selection_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:hand_cricket/app_state.dart';
+import 'package:flutter/cupertino.dart';
 
 class TossPage extends StatefulWidget {
   @override
@@ -76,7 +77,7 @@ Widget oddOrEvenInput(context, input, icon, text, borderColor, iconColor,
       onTap: () {
         appState.setOddOrEven(input);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => TossSelection()));
+            context, CupertinoPageRoute(builder: (context) => TossSelection()));
       },
       child: buttons(
           icon, text, borderColor, iconColor, iconBorderColor, textColor),

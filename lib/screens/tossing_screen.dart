@@ -164,7 +164,10 @@ class TossingPageState extends State<TossingPage> {
             padding: const EdgeInsets.only(top: 16.0),
             child: RichText(
                 text: TextSpan(
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontFamily: 'Oxygen-regular.ttf'),
                     children: <TextSpan>[
                   TextSpan(
                       text: 'Opponent Selected ',
@@ -180,7 +183,10 @@ class TossingPageState extends State<TossingPage> {
           );
           batting = RichText(
               text: TextSpan(
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontFamily: 'Oxygen-regular.ttf'),
                   children: <TextSpan>[
                 TextSpan(
                     text: 'You will play as  ',

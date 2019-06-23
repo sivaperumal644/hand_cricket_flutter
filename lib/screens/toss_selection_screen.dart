@@ -4,6 +4,7 @@ import 'package:hand_cricket/app_state.dart';
 import 'package:provider/provider.dart';
 import 'tossing_screen.dart';
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
 
 class TossSelection extends StatefulWidget {
   @override
@@ -77,7 +78,7 @@ Widget tossInput(context, input) {
       onTap: () {
         appState.setSelectedInput(int.parse(input) + random());
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => TossingPage()));
+            context, CupertinoPageRoute(builder: (context) => TossingPage()));
       },
       child: inputButton(input),
       borderRadius: BorderRadius.circular(40));

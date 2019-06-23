@@ -5,6 +5,7 @@ import 'rules_screen.dart';
 import 'toss_screen.dart';
 import 'package:hand_cricket/app_state.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'dart:io';
 
 class HomeScreen extends StatefulWidget {
@@ -99,7 +100,7 @@ Widget noOfOverButton(context, overs, icon, content) {
       onTap: () {
         appState.setTotalOvers(overs);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => TossPage()));
+            context, CupertinoPageRoute(builder: (context) => TossPage()));
       },
       child: buttons(icon, content, Color.fromRGBO(255, 255, 255, 0.5),
           Color.fromRGBO(229, 109, 109, 100), Colors.white, Colors.white),

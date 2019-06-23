@@ -8,11 +8,13 @@ import 'dart:math';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:toast/toast.dart';
 import 'package:flutter/animation.dart';
+import 'package:flutter/cupertino.dart';
 
-Animation userAnimation, cpuAnimation, inputAnimation;
+Animation userAnimation, cpuAnimation, inputAnimation, inputFadeAnimation;
 AnimationController userAnimationController,
     cpuAnimationController,
-    inputAnimationController;
+    inputAnimationController,
+    inputFadeAnimationController;
 bool isInputVisible;
 
 final oversBowl = [
@@ -175,7 +177,8 @@ class MatchScreenState extends State<MatchScreen>
                           appState.getIsInputVisible,
                           appState.getYouRedColor,
                           appState.getScoreLightGray,
-                          Color.fromRGBO(221, 63, 63, 100))),
+                          Color.fromRGBO(221, 63, 63, 100),
+                          appState.getIsMatchStart)),
                   Container(
                       width: screenWidth,
                       height: screenHeight,
@@ -191,7 +194,8 @@ class MatchScreenState extends State<MatchScreen>
                           appState.getIsInputVisible,
                           appState.getCpuGrayColor,
                           appState.getScoreLightGray,
-                          Color.fromRGBO(119, 119, 119, 100)))
+                          Color.fromRGBO(119, 119, 119, 100),
+                          appState.getIsMatchStart))
                 ],
               )
             ],
@@ -224,6 +228,7 @@ Widget inputSelection(String input, context) {
           appState.setScoreLightGray(Color.fromRGBO(168, 168, 168, 0.2));
           appState.setCpuGrayColor(Color.fromRGBO(119, 119, 119, 0.2));
           appState.setShadowColor(Color.fromRGBO(193, 193, 193, 100));
+          appState.setIsMatchStart(true);
           if (firstBattingCompleted == false) {
             firstBatting(context, int.parse(input));
           } else {
@@ -265,10 +270,51 @@ void firstBatting(context, userInput) {
           appState.setFirstBattingCompleted(true);
           appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
           showDialog(
+              barrierDismissible: false,
               context: context,
               builder: (_) => AlertDialog(
-                    title: Text("That's a Wicket"),
-                    content: Text('CPU is out.'),
+                    title: Center(
+                      child: Text("That's a Wicket",
+                          style: TextStyle(
+                              color: Colors.red, fontWeight: FontWeight.bold)),
+                    ),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text('CPU is out. You have to bat now.'),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              RaisedButton(
+                                color: Color.fromRGBO(221, 63, 63, 0.8),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  'Bat now',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              RaisedButton(
+                                color: Color.fromRGBO(221, 63, 63, 0.8),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) => ResultPage()));
+                                },
+                                child: Text(
+                                  'Exit Match',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ));
         }
       } else if (ballsCompleted == totalBalls - 1) {
@@ -277,10 +323,50 @@ void firstBatting(context, userInput) {
         appState.setFirstBattingCompleted(true);
         appState.setBallsCompleted(0);
         showDialog(
+            barrierDismissible: false,
             context: context,
             builder: (_) => AlertDialog(
-                  title: Text("End of innings."),
-                  content: Text('you have to bat.'),
+                  title: Center(
+                      child: Text("End of innings.",
+                          style: TextStyle(
+                              color: Colors.red, fontWeight: FontWeight.bold))),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('CPU innings is over. You have to bat now.'),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            RaisedButton(
+                              color: Color.fromRGBO(221, 63, 63, 0.8),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                'Bat now',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            RaisedButton(
+                              color: Color.fromRGBO(221, 63, 63, 0.8),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) => ResultPage()));
+                              },
+                              child: Text(
+                                'Exit Match',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ));
       }
     } else {
@@ -294,10 +380,53 @@ void firstBatting(context, userInput) {
           appState.setBallsCompleted(0);
           appState.setUserOvers(oversBowl[ballsCompleted + 1]);
           showDialog(
+              barrierDismissible: false,
               context: context,
               builder: (_) => AlertDialog(
-                    title: Text("That's a Wicket"),
-                    content: Text('you are out.'),
+                    title: Center(
+                      child: Text(
+                        "That's a Wicket",
+                        style: TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text('You are out. You have to bowl now.'),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              RaisedButton(
+                                color: Color.fromRGBO(221, 63, 63, 0.8),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  'Bowl now',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              RaisedButton(
+                                color: Color.fromRGBO(221, 63, 63, 0.8),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) => ResultPage()));
+                                },
+                                child: Text(
+                                  'Exit Match',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ));
         }
       } else if (ballsCompleted == totalBalls - 1) {
@@ -306,10 +435,56 @@ void firstBatting(context, userInput) {
         appState.setFirstBattingCompleted(true);
         appState.setBallsCompleted(0);
         showDialog(
+            barrierDismissible: false,
             context: context,
             builder: (_) => AlertDialog(
-                  title: Text("End of innings"),
-                  content: Text('you have to bowl now.'),
+                  title: Center(
+                    child: Text("End of innings",
+                        style: TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.bold)),
+                  ),
+                  content: Column(
+                    children: <Widget>[
+                      Text('Your Batting is over. You have to bowl now.'),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                RaisedButton(
+                                  color: Color.fromRGBO(221, 63, 63, 0.8),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    'Bowl now',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                RaisedButton(
+                                  color: Color.fromRGBO(221, 63, 63, 0.8),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                ResultPage()));
+                                  },
+                                  child: Text(
+                                    'Exit Match',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ));
       }
     }
@@ -325,53 +500,52 @@ void secondBatting(context, userInput) {
   int ballsCompleted = appState.getBallsCompleted;
   int cpuInputScore = cpuInput();
   appState.setCurrentCpuInput(cpuInputScore);
-  Future.delayed(Duration(seconds: 2), (){
+  Future.delayed(Duration(seconds: 2), () {
     if (userOrCpu == 0) {
-    if (ballsCompleted < totalBalls - 1) {
-      if (userInput != cpuInputScore) {
+      if (ballsCompleted < totalBalls - 1) {
+        if (userInput != cpuInputScore) {
+          appState.setUserScore(userScore + userInput);
+          appState.setBallsCompleted(ballsCompleted + 1);
+          appState.setUserOvers(oversBowl[ballsCompleted + 1]);
+          if (appState.getUserScore > appState.getCpuScore) {
+            Navigator.push(
+                context, CupertinoPageRoute(builder: (context) => ResultPage()));
+          }
+        } else if (userInput == cpuInputScore) {
+          Navigator.push(
+              context, CupertinoPageRoute(builder: (context) => ResultPage()));
+        }
+      } else if (ballsCompleted == totalBalls - 1) {
         appState.setUserScore(userScore + userInput);
-        appState.setBallsCompleted(ballsCompleted + 1);
         appState.setUserOvers(oversBowl[ballsCompleted + 1]);
-        if (appState.getUserScore > appState.getCpuScore) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ResultPage()));
-        }
-      } else if (userInput == cpuInputScore) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ResultPage()));
+            context, CupertinoPageRoute(builder: (context) => ResultPage()));
       }
-    } else if (ballsCompleted == totalBalls - 1) {
-      appState.setUserScore(userScore + userInput);
-      appState.setUserOvers(oversBowl[ballsCompleted + 1]);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ResultPage()));
-    }
-  } else {
-    if (ballsCompleted < totalBalls - 1) {
-      if (userInput != cpuInputScore) {
+    } else {
+      if (ballsCompleted < totalBalls - 1) {
+        if (userInput != cpuInputScore) {
+          appState.setCpuScore(cpuScore + cpuInputScore);
+          appState.setBallsCompleted(ballsCompleted + 1);
+          appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
+          if (appState.getCpuScore > appState.getUserScore) {
+            Navigator.push(
+                context, CupertinoPageRoute(builder: (context) => ResultPage()));
+          }
+        } else if (userInput == cpuInputScore) {
+          appState.setBallsCompleted(0);
+          appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
+          Navigator.push(
+              context, CupertinoPageRoute(builder: (context) => ResultPage()));
+        }
+      } else if (ballsCompleted == totalBalls - 1) {
         appState.setCpuScore(cpuScore + cpuInputScore);
+        appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
         appState.setBallsCompleted(ballsCompleted + 1);
-        appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
-        if (appState.getCpuScore > appState.getUserScore) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ResultPage()));
-        }
-      } else if (userInput == cpuInputScore) {
-        appState.setBallsCompleted(0);
-        appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ResultPage()));
+            context, CupertinoPageRoute(builder: (context) => ResultPage()));
       }
-    } else if (ballsCompleted == totalBalls - 1) {
-      appState.setCpuScore(cpuScore + cpuInputScore);
-      appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
-      appState.setBallsCompleted(ballsCompleted + 1);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ResultPage()));
     }
-  }
   });
-  
 }
 
 int cpuInput() {
@@ -382,8 +556,20 @@ int cpuInput() {
   return rnd;
 }
 
-Widget displayMatch(context, vsync, user, userController, start, oversCompleted,
-    runsScored, currentInput, isVisible, youColor, overTextColor, iconColor) {
+Widget displayMatch(
+    context,
+    vsync,
+    user,
+    userController,
+    start,
+    oversCompleted,
+    runsScored,
+    currentInput,
+    isVisible,
+    youColor,
+    overTextColor,
+    iconColor,
+    isMatchStarted) {
   userController =
       AnimationController(duration: Duration(seconds: 1), vsync: vsync);
 
@@ -391,6 +577,14 @@ Widget displayMatch(context, vsync, user, userController, start, oversCompleted,
       CurvedAnimation(parent: userController, curve: Curves.fastOutSlowIn));
 
   userController.forward();
+
+  inputFadeAnimationController =
+      AnimationController(duration: Duration(seconds: 1), vsync: vsync);
+  inputFadeAnimation =
+      Tween(begin: 1.0, end: 0.0).animate(inputFadeAnimationController);
+
+  inputFadeAnimationController.forward();
+
   final width = MediaQuery.of(context).size.width;
   return Column(
     children: <Widget>[
@@ -430,14 +624,31 @@ Widget displayMatch(context, vsync, user, userController, start, oversCompleted,
           )
         ],
       ),
-      // Text(currentInput)
-      isVisible
-          ? AnimatedBuilder(
-              animation: userController,
-              builder: (context, child) {
-                return Transform(
-                  transform:
-                      Matrix4.translationValues(user.value * width, 0.0, 0.0),
+      isMatchStarted
+          ? isVisible
+              ? AnimatedBuilder(
+                  animation: userController,
+                  builder: (context, child) {
+                    return Transform(
+                      transform: Matrix4.translationValues(
+                          user.value * width, 0.0, 0.0),
+                      child: Center(
+                          child: Container(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 100.0),
+                          child: SvgPicture.asset(
+                            currentInputImage[currentInput],
+                            color: iconColor,
+                            width: 100.0,
+                            height: 100.0,
+                          ),
+                        ),
+                      )),
+                    );
+                  },
+                )
+              : FadeTransition(
+                  opacity: inputFadeAnimation,
                   child: Center(
                       child: Container(
                     child: Padding(
@@ -450,9 +661,7 @@ Widget displayMatch(context, vsync, user, userController, start, oversCompleted,
                       ),
                     ),
                   )),
-                );
-              },
-            )
+                )
           : Text('')
     ],
   );
