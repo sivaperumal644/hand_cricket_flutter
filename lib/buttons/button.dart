@@ -44,11 +44,7 @@ Widget gotItButton() {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            'GOT IT',
-            style: TextStyle(
-                fontSize: 24, color: Color.fromRGBO(255, 255, 255, 0.5)),
-          )
+          Text('GOT IT', style: TextStyle(fontSize: 24, color: Colors.white))
         ],
       ),
     ),

@@ -15,7 +15,6 @@ AnimationController userAnimationController,
     inputAnimationController;
 bool isInputVisible;
 
-
 final oversBowl = [
   '0.0',
   '0.1',
@@ -129,14 +128,14 @@ class MatchScreenState extends State<MatchScreen>
                             child: Text(
                               'YOU',
                               style: TextStyle(
-                                  color: Color(0xffDD3F3F), fontSize: 18),
+                                  color: appState.getYouRedColor, fontSize: 18),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 50.0),
                             child: Text('CPU',
                                 style: TextStyle(
-                                    color: Color.fromRGBO(57, 57, 57, 0.5),
+                                    color: Color.fromRGBO(57, 57, 57, 0.28),
                                     fontSize: 18)),
                           )
                         ],
@@ -147,7 +146,7 @@ class MatchScreenState extends State<MatchScreen>
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Color.fromRGBO(255, 150, 150, 0.6),
+                        color: appState.getShadowColor,
                         blurRadius: 20,
                       ),
                     ],
@@ -173,7 +172,10 @@ class MatchScreenState extends State<MatchScreen>
                           appState.getUserOvers.toString(),
                           appState.getUserScore.toString(),
                           appState.getCurrentUserInput,
-                          appState.getIsInputVisible)),
+                          appState.getIsInputVisible,
+                          appState.getYouRedColor,
+                          appState.getScoreLightGray,
+                          Color.fromRGBO(221, 63, 63, 100))),
                   Container(
                       width: screenWidth,
                       height: screenHeight,
@@ -186,12 +188,20 @@ class MatchScreenState extends State<MatchScreen>
                           appState.getCpuOvers.toString(),
                           appState.getCpuScore.toString(),
                           appState.getCurrentCpuInput,
-                          appState.getIsInputVisible))
+                          appState.getIsInputVisible,
+                          appState.getCpuGrayColor,
+                          appState.getScoreLightGray,
+                          Color.fromRGBO(119, 119, 119, 100)))
                 ],
               )
             ],
           ),
-          inputSelectionContainer(context, this, appState.getInputContainerStart, appState.getInputContainerEnd, inputAnimation,
+          inputSelectionContainer(
+              context,
+              this,
+              appState.getInputContainerStart,
+              appState.getInputContainerEnd,
+              inputAnimation,
               inputAnimationController)
         ]),
       ),
@@ -210,6 +220,10 @@ Widget inputSelection(String input, context) {
           appState.setCurrentUserInput(int.parse(input));
           appState.setInputContainerStart(0.0);
           appState.setInputContainerEnd(1.0);
+          appState.setYouRedColor(Color.fromRGBO(221, 63, 63, 0.2));
+          appState.setScoreLightGray(Color.fromRGBO(168, 168, 168, 0.2));
+          appState.setCpuGrayColor(Color.fromRGBO(119, 119, 119, 0.2));
+          appState.setShadowColor(Color.fromRGBO(193, 193, 193, 100));
           if (firstBattingCompleted == false) {
             firstBatting(context, int.parse(input));
           } else {
@@ -219,6 +233,10 @@ Widget inputSelection(String input, context) {
             appState.setIsInputVisible(false);
             appState.setInputContainerStart(1.0);
             appState.setInputContainerEnd(0.0);
+            appState.setYouRedColor(Color.fromRGBO(221, 63, 63, 100));
+            appState.setScoreLightGray(Color.fromRGBO(168, 168, 168, 100));
+            appState.setCpuGrayColor(Color.fromRGBO(119, 119, 119, 100));
+            appState.setShadowColor(Color.fromRGBO(255, 150, 150, 0.6));
           });
         },
         child: inputButton(input),
@@ -235,65 +253,67 @@ void firstBatting(context, userInput) {
   int ballsCompleted = appState.getBallsCompleted;
   int cpuInputScore = cpuInput();
   appState.setCurrentCpuInput(cpuInputScore);
-  if (userOrCpu == 0) {
-    if (ballsCompleted < totalBalls - 1) {
-      if (userInput != cpuInputScore) {
+  Future.delayed(Duration(seconds: 2), () {
+    if (userOrCpu == 0) {
+      if (ballsCompleted < totalBalls - 1) {
+        if (userInput != cpuInputScore) {
+          appState.setCpuScore(cpuScore + cpuInputScore);
+          appState.setBallsCompleted(ballsCompleted + 1);
+          appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
+        } else if (userInput == cpuInputScore) {
+          appState.setBallsCompleted(0);
+          appState.setFirstBattingCompleted(true);
+          appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
+          showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                    title: Text("That's a Wicket"),
+                    content: Text('CPU is out.'),
+                  ));
+        }
+      } else if (ballsCompleted == totalBalls - 1) {
         appState.setCpuScore(cpuScore + cpuInputScore);
-        appState.setBallsCompleted(ballsCompleted + 1);
         appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
-      } else if (userInput == cpuInputScore) {
-        appState.setBallsCompleted(0);
         appState.setFirstBattingCompleted(true);
-        appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
+        appState.setBallsCompleted(0);
         showDialog(
             context: context,
             builder: (_) => AlertDialog(
-                  title: Text("That's a Wicket"),
-                  content: Text('CPU is out.'),
+                  title: Text("End of innings."),
+                  content: Text('you have to bat.'),
                 ));
       }
-    } else if (ballsCompleted == totalBalls - 1) {
-      appState.setCpuScore(cpuScore + cpuInputScore);
-      appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
-      appState.setFirstBattingCompleted(true);
-      appState.setBallsCompleted(0);
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                title: Text("End of innings."),
-                content: Text('you have to bat.'),
-              ));
-    }
-  } else {
-    if (ballsCompleted < totalBalls - 1) {
-      if (userInput != cpuInputScore) {
+    } else {
+      if (ballsCompleted < totalBalls - 1) {
+        if (userInput != cpuInputScore) {
+          appState.setUserScore(userScore + userInput);
+          appState.setBallsCompleted(ballsCompleted + 1);
+          appState.setUserOvers(oversBowl[ballsCompleted + 1]);
+        } else if (userInput == cpuInputScore) {
+          appState.setFirstBattingCompleted(true);
+          appState.setBallsCompleted(0);
+          appState.setUserOvers(oversBowl[ballsCompleted + 1]);
+          showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                    title: Text("That's a Wicket"),
+                    content: Text('you are out.'),
+                  ));
+        }
+      } else if (ballsCompleted == totalBalls - 1) {
         appState.setUserScore(userScore + userInput);
-        appState.setBallsCompleted(ballsCompleted + 1);
         appState.setUserOvers(oversBowl[ballsCompleted + 1]);
-      } else if (userInput == cpuInputScore) {
         appState.setFirstBattingCompleted(true);
         appState.setBallsCompleted(0);
-        appState.setUserOvers(oversBowl[ballsCompleted + 1]);
         showDialog(
             context: context,
             builder: (_) => AlertDialog(
-                  title: Text("That's a Wicket"),
-                  content: Text('you are out.'),
+                  title: Text("End of innings"),
+                  content: Text('you have to bowl now.'),
                 ));
       }
-    } else if (ballsCompleted == totalBalls - 1) {
-      appState.setUserScore(userScore + userInput);
-      appState.setUserOvers(oversBowl[ballsCompleted + 1]);
-      appState.setFirstBattingCompleted(true);
-      appState.setBallsCompleted(0);
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                title: Text("End of innings"),
-                content: Text('you have to bowl now.'),
-              ));
     }
-  }
+  });
 }
 
 void secondBatting(context, userInput) {
@@ -305,7 +325,8 @@ void secondBatting(context, userInput) {
   int ballsCompleted = appState.getBallsCompleted;
   int cpuInputScore = cpuInput();
   appState.setCurrentCpuInput(cpuInputScore);
-  if (userOrCpu == 0) {
+  Future.delayed(Duration(seconds: 2), (){
+    if (userOrCpu == 0) {
     if (ballsCompleted < totalBalls - 1) {
       if (userInput != cpuInputScore) {
         appState.setUserScore(userScore + userInput);
@@ -349,6 +370,8 @@ void secondBatting(context, userInput) {
           context, MaterialPageRoute(builder: (context) => ResultPage()));
     }
   }
+  });
+  
 }
 
 int cpuInput() {
@@ -360,9 +383,9 @@ int cpuInput() {
 }
 
 Widget displayMatch(context, vsync, user, userController, start, oversCompleted,
-    runsScored, currentInput, isVisible) {
+    runsScored, currentInput, isVisible, youColor, overTextColor, iconColor) {
   userController =
-      AnimationController(duration: Duration(seconds: 2), vsync: vsync);
+      AnimationController(duration: Duration(seconds: 1), vsync: vsync);
 
   user = Tween(begin: start, end: 0.0).animate(
       CurvedAnimation(parent: userController, curve: Curves.fastOutSlowIn));
@@ -377,14 +400,14 @@ Widget displayMatch(context, vsync, user, userController, start, oversCompleted,
             padding: const EdgeInsets.only(left: 24.0, top: 32.0),
             child: Text(
               'OVERS',
-              style: TextStyle(color: Color(0xffA8A8A8), fontSize: 14),
+              style: TextStyle(color: overTextColor, fontSize: 14),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 24.0, left: 16.0),
             child: Text(
               oversCompleted,
-              style: TextStyle(fontSize: 24, color: Color(0xffDD3F3F)),
+              style: TextStyle(fontSize: 24, color: youColor),
             ),
           )
         ],
@@ -395,14 +418,14 @@ Widget displayMatch(context, vsync, user, userController, start, oversCompleted,
             padding: const EdgeInsets.only(left: 24.0, top: 16.0),
             child: Text(
               'SCORE',
-              style: TextStyle(color: Color(0xffA8A8A8), fontSize: 14),
+              style: TextStyle(color: overTextColor, fontSize: 14),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 16.0, left: 16.0),
             child: Text(
               runsScored,
-              style: TextStyle(fontSize: 24, color: Color(0xffDD3F3F)),
+              style: TextStyle(fontSize: 24, color: youColor),
             ),
           )
         ],
@@ -418,11 +441,12 @@ Widget displayMatch(context, vsync, user, userController, start, oversCompleted,
                   child: Center(
                       child: Container(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 32.0),
+                      padding: const EdgeInsets.only(top: 100.0),
                       child: SvgPicture.asset(
                         currentInputImage[currentInput],
-                        width: 60.0,
-                        height: 60.0,
+                        color: iconColor,
+                        width: 100.0,
+                        height: 100.0,
                       ),
                     ),
                   )),
@@ -438,7 +462,7 @@ Widget inputSelectionContainer(
     context, vsync, start, end, animation, animationController) {
   final height = 350;
   animationController =
-      AnimationController(duration: Duration(seconds: 2), vsync: vsync);
+      AnimationController(duration: Duration(seconds: 1), vsync: vsync);
 
   animation = Tween(begin: start, end: end).animate(CurvedAnimation(
       parent: animationController, curve: Curves.fastOutSlowIn));

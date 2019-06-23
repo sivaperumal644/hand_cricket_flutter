@@ -100,7 +100,7 @@ class TossingPageState extends State<TossingPage> {
                     child: batting,
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 40.0),
                     child: bowling,
                   ),
                 ],

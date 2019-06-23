@@ -42,17 +42,19 @@ class HomeScreenState extends State<HomeScreen> {
                       noOfOverButton(context, 30, '5', '5 Over Game'),
                       noOfOverButton(context, 60, '10', '10 Over Game'),
                       InkWell(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Rules()));
-                        },
-                        child: Text(
-                          'READ THE RULES',
-                          style: TextStyle(
-                              fontSize: 24,
-                              color: Colors.white),
-                        ),
-                      )
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Rules()));
+                          },
+                          child: FlatButton(
+                            child: Text(
+                              'READ THE RULES',
+                              style:
+                                  TextStyle(fontSize: 24, color: Colors.white),
+                            ),
+                          ))
                     ],
                   ),
                 ),
@@ -69,11 +71,13 @@ class HomeScreenState extends State<HomeScreen> {
                                 MaterialPageRoute(
                                     builder: (context) => AboutApp()));
                           },
-                          child: Text(
-                            'ABOUT APP',
-                            style: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.5),
-                                fontSize: 24),
+                          child: FlatButton(
+                            child: Text(
+                              'ABOUT APP',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(255, 255, 255, 0.5),
+                                  fontSize: 24),
+                            ),
                           ),
                         ),
                       ),
