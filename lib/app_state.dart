@@ -24,6 +24,8 @@ class AppState with ChangeNotifier {
   Color scoreLightGray = Color.fromRGBO(168,168,168,100);
   Color shadowColor = Color.fromRGBO(255, 150, 150, 0.6);
   bool isMatchStart = false;
+  int userPlayImage = 0;
+  int cpuPlayImage = 0;
 
   void setTotalOvers(int text) {
     totalOvers = text;
@@ -129,6 +131,17 @@ class AppState with ChangeNotifier {
     isMatchStart = text;
     notifyListeners();
   }
+
+  void setUserPlayImage(int text){
+    userPlayImage = text;
+    notifyListeners();
+  }
+
+  void setCpuPlayImage(int text){
+    cpuPlayImage = text;
+    notifyListeners();
+  }
+
   int get getTotalOvers => totalOvers;
   int get getSelectedInput => selectedInput;
   int get getOddOrEven => oddOrEven;
@@ -150,4 +163,6 @@ class AppState with ChangeNotifier {
   Color get getScoreLightGray => scoreLightGray;
   Color get getShadowColor => shadowColor;
   bool get getIsMatchStart => isMatchStart;
+  int get getUserPlayImage => userPlayImage;
+  int get getCpuPlayImage => cpuPlayImage;
 }

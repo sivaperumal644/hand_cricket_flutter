@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hand_cricket/buttons/input_button.dart';
+import 'package:hand_cricket/screens/home_screen.dart';
 import 'result_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:hand_cricket/app_state.dart';
@@ -91,6 +92,8 @@ final currentInputImage = [
   'images/six.svg'
 ];
 
+final batOrBowl = ['images/cricket_bat.png', 'images/cricket_ball.png'];
+
 class MatchScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -127,18 +130,33 @@ class MatchScreenState extends State<MatchScreen>
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(top: 50.0),
-                            child: Text(
-                              'YOU',
-                              style: TextStyle(
-                                  color: appState.getYouRedColor, fontSize: 18),
+                            child: Row(
+                              children: <Widget>[
+                                Text(
+                                  'YOU',
+                                  style: TextStyle(
+                                      color: appState.getYouRedColor,
+                                      fontSize: 18),
+                                ),
+                                Image.asset(
+                                    batOrBowl[appState.getUserPlayImage],
+                                    width: 40,
+                                    height: 30)
+                              ],
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 50.0),
-                            child: Text('CPU',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(57, 57, 57, 0.28),
-                                    fontSize: 18)),
+                            child: Row(
+                              children: <Widget>[
+                                Text('CPU',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(57, 57, 57, 0.28),
+                                        fontSize: 18)),
+                                Image.asset(batOrBowl[appState.getCpuPlayImage],
+                                    width: 40, height: 30)
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -290,6 +308,8 @@ void firstBatting(context, userInput) {
                               RaisedButton(
                                 color: Color.fromRGBO(221, 63, 63, 0.8),
                                 onPressed: () {
+                                  appState.setUserPlayImage(0);
+                                  appState.setCpuPlayImage(1);
                                   Navigator.pop(context);
                                 },
                                 child: Text(
@@ -300,10 +320,20 @@ void firstBatting(context, userInput) {
                               RaisedButton(
                                 color: Color.fromRGBO(221, 63, 63, 0.8),
                                 onPressed: () {
+                                  appState.setCpuScore(0);
+                                  appState.setUserScore(0);
+                                  appState.setFirstBattingCompleted(false);
+                                  appState.setCpuOvers('0.0');
+                                  appState.setUserOvers('0.0');
+                                  appState.setBallsCompleted(0);
+                                  appState.setCurrentCpuInput(0);
+                                  appState.setCurrentUserInput(0);
+                                  appState.setGetBack(false);
+                                  appState.setIsMatchStart(false);
                                   Navigator.push(
                                       context,
                                       CupertinoPageRoute(
-                                          builder: (context) => ResultPage()));
+                                          builder: (context) => HomeScreen()));
                                 },
                                 child: Text(
                                   'Exit Match',
@@ -342,6 +372,8 @@ void firstBatting(context, userInput) {
                             RaisedButton(
                               color: Color.fromRGBO(221, 63, 63, 0.8),
                               onPressed: () {
+                                appState.setUserPlayImage(0);
+                                appState.setCpuPlayImage(1);
                                 Navigator.pop(context);
                               },
                               child: Text(
@@ -352,10 +384,20 @@ void firstBatting(context, userInput) {
                             RaisedButton(
                               color: Color.fromRGBO(221, 63, 63, 0.8),
                               onPressed: () {
+                                appState.setCpuScore(0);
+                                appState.setUserScore(0);
+                                appState.setFirstBattingCompleted(false);
+                                appState.setCpuOvers('0.0');
+                                appState.setUserOvers('0.0');
+                                appState.setBallsCompleted(0);
+                                appState.setCurrentCpuInput(0);
+                                appState.setCurrentUserInput(0);
+                                appState.setGetBack(false);
+                                appState.setIsMatchStart(false);
                                 Navigator.push(
                                     context,
                                     CupertinoPageRoute(
-                                        builder: (context) => ResultPage()));
+                                        builder: (context) => HomeScreen()));
                               },
                               child: Text(
                                 'Exit Match',
@@ -370,6 +412,8 @@ void firstBatting(context, userInput) {
                 ));
       }
     } else {
+      appState.setUserPlayImage(0);
+      appState.setCpuPlayImage(1);
       if (ballsCompleted < totalBalls - 1) {
         if (userInput != cpuInputScore) {
           appState.setUserScore(userScore + userInput);
@@ -402,6 +446,8 @@ void firstBatting(context, userInput) {
                               RaisedButton(
                                 color: Color.fromRGBO(221, 63, 63, 0.8),
                                 onPressed: () {
+                                  appState.setUserPlayImage(1);
+                                  appState.setCpuPlayImage(0);
                                   Navigator.pop(context);
                                 },
                                 child: Text(
@@ -412,10 +458,20 @@ void firstBatting(context, userInput) {
                               RaisedButton(
                                 color: Color.fromRGBO(221, 63, 63, 0.8),
                                 onPressed: () {
+                                  appState.setCpuScore(0);
+                                  appState.setUserScore(0);
+                                  appState.setFirstBattingCompleted(false);
+                                  appState.setCpuOvers('0.0');
+                                  appState.setUserOvers('0.0');
+                                  appState.setBallsCompleted(0);
+                                  appState.setCurrentCpuInput(0);
+                                  appState.setCurrentUserInput(0);
+                                  appState.setGetBack(false);
+                                  appState.setIsMatchStart(false);
                                   Navigator.push(
                                       context,
                                       CupertinoPageRoute(
-                                          builder: (context) => ResultPage()));
+                                          builder: (context) => HomeScreen()));
                                 },
                                 child: Text(
                                   'Exit Match',
@@ -444,6 +500,7 @@ void firstBatting(context, userInput) {
                             color: Colors.red, fontWeight: FontWeight.bold)),
                   ),
                   content: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text('Your Batting is over. You have to bowl now.'),
                       Padding(
@@ -457,6 +514,8 @@ void firstBatting(context, userInput) {
                                 RaisedButton(
                                   color: Color.fromRGBO(221, 63, 63, 0.8),
                                   onPressed: () {
+                                    appState.setUserPlayImage(1);
+                                    appState.setCpuPlayImage(0);
                                     Navigator.pop(context);
                                   },
                                   child: Text(
@@ -467,11 +526,21 @@ void firstBatting(context, userInput) {
                                 RaisedButton(
                                   color: Color.fromRGBO(221, 63, 63, 0.8),
                                   onPressed: () {
+                                    appState.setCpuScore(0);
+                                    appState.setUserScore(0);
+                                    appState.setFirstBattingCompleted(false);
+                                    appState.setCpuOvers('0.0');
+                                    appState.setUserOvers('0.0');
+                                    appState.setBallsCompleted(0);
+                                    appState.setCurrentCpuInput(0);
+                                    appState.setCurrentUserInput(0);
+                                    appState.setGetBack(false);
+                                    appState.setIsMatchStart(false);
                                     Navigator.push(
                                         context,
                                         CupertinoPageRoute(
                                             builder: (context) =>
-                                                ResultPage()));
+                                                HomeScreen()));
                                   },
                                   child: Text(
                                     'Exit Match',
@@ -502,14 +571,16 @@ void secondBatting(context, userInput) {
   appState.setCurrentCpuInput(cpuInputScore);
   Future.delayed(Duration(seconds: 2), () {
     if (userOrCpu == 0) {
+      appState.setUserPlayImage(0);
+      appState.setCpuPlayImage(1);
       if (ballsCompleted < totalBalls - 1) {
         if (userInput != cpuInputScore) {
           appState.setUserScore(userScore + userInput);
           appState.setBallsCompleted(ballsCompleted + 1);
           appState.setUserOvers(oversBowl[ballsCompleted + 1]);
           if (appState.getUserScore > appState.getCpuScore) {
-            Navigator.push(
-                context, CupertinoPageRoute(builder: (context) => ResultPage()));
+            Navigator.push(context,
+                CupertinoPageRoute(builder: (context) => ResultPage()));
           }
         } else if (userInput == cpuInputScore) {
           Navigator.push(
@@ -522,14 +593,16 @@ void secondBatting(context, userInput) {
             context, CupertinoPageRoute(builder: (context) => ResultPage()));
       }
     } else {
+      appState.setUserPlayImage(1);
+      appState.setCpuPlayImage(0);
       if (ballsCompleted < totalBalls - 1) {
         if (userInput != cpuInputScore) {
           appState.setCpuScore(cpuScore + cpuInputScore);
           appState.setBallsCompleted(ballsCompleted + 1);
           appState.setCpuOvers(oversBowl[ballsCompleted + 1]);
           if (appState.getCpuScore > appState.getUserScore) {
-            Navigator.push(
-                context, CupertinoPageRoute(builder: (context) => ResultPage()));
+            Navigator.push(context,
+                CupertinoPageRoute(builder: (context) => ResultPage()));
           }
         } else if (userInput == cpuInputScore) {
           appState.setBallsCompleted(0);

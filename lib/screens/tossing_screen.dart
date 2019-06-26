@@ -34,7 +34,7 @@ class TossingPageState extends State<TossingPage> {
         return false;
       },
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(221, 63, 63, 50),
+        backgroundColor: Color.fromRGBO(221, 63, 63, 1),
         body: Column(
           children: <Widget>[
             Padding(
@@ -132,6 +132,8 @@ class TossingPageState extends State<TossingPage> {
           );
           batting = InkWell(
             onTap: () {
+              setPlayImage(context, 0, 1);
+
               selectBattingOrBowling(1, context);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MatchScreen()));
@@ -142,6 +144,7 @@ class TossingPageState extends State<TossingPage> {
           );
           bowling = InkWell(
             onTap: () {
+              setPlayImage(context, 1, 0);
               selectBattingOrBowling(0, context);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MatchScreen()));
@@ -153,52 +156,52 @@ class TossingPageState extends State<TossingPage> {
         } else {
           int selection = opponentSelection();
           if (selection == 0) {
+            setPlayImage(context, 1, 0);
             opponentChoice = 'Batting';
             youHaveTo = 'Bowler';
           } else {
+            setPlayImage(context, 0, 1);
             opponentChoice = 'Bowling';
             youHaveTo = 'Batsman';
           }
           winner = "You lose the toss.";
           choice = Padding(
             padding: const EdgeInsets.only(top: 16.0),
-            child: RichText(
-                text: TextSpan(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Opponent Selected ',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(opponentChoice,
                     style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,
-                        fontFamily: 'Oxygen-regular.ttf'),
-                    children: <TextSpan>[
-                  TextSpan(
-                      text: 'Opponent Selected ',
-                      style: TextStyle(fontFamily: 'Oxygen-regular.ttf')),
-                  TextSpan(
-                      text: opponentChoice,
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontFamily: 'Oxygen-regular.ttf',
-                          fontWeight: FontWeight.bold))
-                ])),
+                        fontWeight: FontWeight.bold))
+              ],
+            ),
           );
-          batting = RichText(
-              text: TextSpan(
+          batting = Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'You will play as ',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+              Text(youHaveTo,
                   style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
-                      fontFamily: 'Oxygen-regular.ttf'),
-                  children: <TextSpan>[
-                TextSpan(
-                    text: 'You will play as  ',
-                    style: TextStyle(fontFamily: 'Oxygen-regular.ttf')),
-                TextSpan(
-                    text: youHaveTo,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontFamily: 'Oxygen-regular.ttf',
-                        fontWeight: FontWeight.bold))
-              ]));
+                      fontWeight: FontWeight.bold))
+            ],
+          );
           bowling = InkWell(
               borderRadius: BorderRadius.circular(20),
               onTap: () {
@@ -243,4 +246,10 @@ int opponentSelection() {
 void selectBattingOrBowling(int selection, context) {
   final appState = Provider.of<AppState>(context);
   appState.setBattingOrBowling(selection);
+}
+
+void setPlayImage(context, user, cpu) {
+  final appState = Provider.of<AppState>(context);
+  appState.setUserPlayImage(user);
+  appState.setCpuPlayImage(cpu);
 }

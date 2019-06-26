@@ -8,6 +8,19 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
 
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<AppState>(
+      builder: (_) => AppState(),
+      child: MaterialApp(
+        theme: ThemeData(fontFamily: 'Oxygen'),
+        home: HomeScreen(),
+      ),
+    );
+  }
+}
+
 class HomeScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -24,7 +37,7 @@ class HomeScreenState extends State<HomeScreen> {
         return true;
       },
       child: Scaffold(
-          backgroundColor: Color.fromRGBO(221, 63, 63, 50),
+          backgroundColor: Color.fromRGBO(221, 63, 63, 1),
           body: Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,20 +55,23 @@ class HomeScreenState extends State<HomeScreen> {
                     children: <Widget>[
                       noOfOverButton(context, 30, '5', '5 Over Game'),
                       noOfOverButton(context, 60, '10', '10 Over Game'),
-                      InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Rules()));
-                          },
-                          child: FlatButton(
-                            child: Text(
-                              'READ THE RULES',
-                              style:
-                                  TextStyle(fontSize: 24, color: Colors.white),
-                            ),
-                          ))
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Rules()));
+                            },
+                            child: FlatButton(
+                              child: Text(
+                                'READ THE RULES',
+                                style: TextStyle(
+                                    fontSize: 24, color: Colors.white),
+                              ),
+                            )),
+                      )
                     ],
                   ),
                 ),

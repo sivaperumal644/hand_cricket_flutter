@@ -16,7 +16,7 @@ class TossPageState extends State<TossPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(221, 63, 63, 50),
+      backgroundColor: Color.fromRGBO(221, 63, 63, 1),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

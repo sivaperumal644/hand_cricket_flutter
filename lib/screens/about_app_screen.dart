@@ -4,6 +4,7 @@ class AboutApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
           Padding(
@@ -37,15 +38,31 @@ class AboutApp extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 32.0),
-            child: RichText(
-              text:
-                  TextSpan(style: TextStyle(fontSize: 24), children: <TextSpan>[
-                TextSpan(
-                    text: 'Made with', style: TextStyle(color: Colors.black)),
-                TextSpan(
-                    text: ' Flutter',
-                    style: TextStyle(color: Color.fromRGBO(51, 153, 255, 100)))
-              ]),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Image.asset(
+                    'images/flutter_icon.png',
+                    width: 40,
+                    height: 40,
+                  ),
+                ),
+                RichText(
+                  text: TextSpan(
+                      style: TextStyle(fontSize: 24),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'Made with',
+                            style: TextStyle(color: Colors.black)),
+                        TextSpan(
+                            text: ' Flutter',
+                            style: TextStyle(
+                                color: Color.fromRGBO(51, 153, 255, 100)))
+                      ]),
+                ),
+              ],
             ),
           ),
           Padding(

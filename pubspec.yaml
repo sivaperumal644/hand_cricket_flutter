@@ -58,6 +58,9 @@ flutter:
     - images/four.svg
     - images/five.svg
     - images/six.svg
+    - images/flutter_icon.png
+    - images/cricket_bat.png
+    - images/cricket_ball.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
