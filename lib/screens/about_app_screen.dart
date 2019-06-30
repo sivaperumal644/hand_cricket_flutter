@@ -66,10 +66,17 @@ class AboutApp extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 42.0),
+            padding: const EdgeInsets.only(top: 16.0),
             child: Text('Design By Roshan G Rahman',
                 style: TextStyle(
                     color: Color.fromRGBO(51, 153, 255, 100), fontSize: 14)),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Icons made by Freepik.com, from Flaticon.',
+              style: TextStyle(fontSize: 12, color: Colors.black),
+            ),
           ),
           Expanded(
             child: Padding(

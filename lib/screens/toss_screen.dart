@@ -31,7 +31,7 @@ class TossPageState extends State<TossPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 32, left: 20),
+            padding: const EdgeInsets.only(top: 32, left: 20, bottom: 20),
             child: Text(
               'Toss',
               style: TextStyle(
