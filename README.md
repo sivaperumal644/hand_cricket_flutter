@@ -4,7 +4,7 @@ A fun game based on the popular Hand Cricket, made with Flutter for the mobile.
 
 ## About Hand Cricket
 
-- Hand Cricket is a simple hand gesture, turn based game that is popular with students in India. This app is an easy to play fun game based on the hand cricket rules.
+- Hand Cricket is a simple hand gesture, turn based game that is popular with students in India. This app is an easy to play fun game based on the hand cricket rule.
 
 ## Try out the game
 
